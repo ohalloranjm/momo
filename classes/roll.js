@@ -81,26 +81,19 @@ class Roll {
         return this.appendText(...params);
     }
 
-    // composeMessage() {
-    //     let msg = this.trigger ? this.trigger + '\n\n' : '';
-    //     msg += this.equation + '\n';
-    //     if (this.reminder) msg += `-#${this.reminder}\n`;
-    //     if (this.result) msg += `\n${this.result}`;
-    //     return msg;
-    // }
-
     composeMessage(title) {
         const roll = this;
-        return { embeds: [
-            new EmbedBuilder()
-                .setColor(0x5555FF)
-                .setTitle('Assess a Situation')
-                .addFields(
-                    { name: 'Roll', value: roll.equation },
-                    { name: 'Result', value: roll.result },
-                )
-                .setTimestamp()
-            ]
+        const embed = new EmbedBuilder()
+        .setColor(0x5555FF)
+        .setTitle(title)
+        .addFields(
+            { name: 'Roll', value: roll.equation },
+        )
+        .setTimestamp()
+
+        if (this.result) embed.addFields({ name: 'Result', value: roll.result });
+
+        return { embeds: [ embed ]
         }
     }
 

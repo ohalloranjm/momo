@@ -5,18 +5,29 @@ const Roll = require ('./roll');
 require('../formatters');
 
 class Move {
+
+    // one- or two-word slash command name, e.g. 'assess'
     constructor(key) {
         this.key = key;
     }
 
+    // full title of the move, e.g. 'Assess a Situation'
     setTitle(title) {
         this.title = title;
         return this;
     }
 
+    // default stat to use when rolling, e.g. 'harmony'
     setStat(stat) {
         this.stat = stat;
         this.Stat = stat.capitalize();
+        return this;
+    }
+
+    // [*], [...hit, part, full, miss], [text]
+    appendToResult(...params) {
+        this.resultLines = this.resultLines || [];
+        this.resultLines.push(params);
         return this;
     }
 
@@ -94,12 +105,25 @@ class Move {
                 statValue = activePC[stat];
                 statName = stat.capitalize();
             }
-
-            const roll = new Roll()
-
         }
 
-        await interaction.reply(`Hello! ${statName}: ${statValue}`);
+        const roll = new Roll()
+            .addModifier(statValue, statName)
+            .addModifier(interaction.options.getInteger('extra-modifier'))
+            .sumTotal()
+
+        console.log(this.resultLines);
+
+        this.resultLines.forEach(resultLine => {
+            if (resultLine[0] === 'bullet') {
+                roll.appendBullet(...resultLine.slice(1));
+            } else {
+                roll.appendText(...resultLine);
+            }
+            
+        })
+
+        await interaction.reply(roll.composeMessage(this.title));
 
     }
 
