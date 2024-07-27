@@ -47,6 +47,12 @@ module.exports = {
                 )
         ),
     async execute(interaction) {
+
+        await interaction.reply({
+            content: 'Creating your character',
+            ephemeral: true
+        })
+
         const { id } = interaction.user;
 
         const otherPCs = await PlayerCharacter.findAll({
@@ -56,44 +62,43 @@ module.exports = {
             attributes: [ 'id', 'active' ]
         })
 
-        if (otherPCs.length > 2) {
+        if (otherPCs.length >= 5 && id !== process.env.ADMIN_ID) {
+            await interaction.followUp("You are allowed a maximum of five player characters per Discord account. Please delete an existing PC before creating a new one.")
+            return;
+        }
 
-            await interaction.reply("You are allowed a maximum of three player characters per Discord account. Please delete an existing PC before creating a new one.")
+        const playbook = Playbooks[interaction.options.getString('playbook')];
+        const { creativity, focus, harmony, passion } = playbook;
+
+        const newPC = PlayerCharacter.build({
+            userId: interaction.user.id,
+            name: interaction.options.getString('name'),
+            playbook: interaction.options.getString('playbook'),
+            creativity,
+            focus,
+            harmony,
+            passion,
+            backgrounds: 'Military, Wilderness',
+        })
+
+        const stat = interaction.options.getString('stat-increase');
+        
+        if (newPC[stat] === 2) {
+            await interaction.followUp(`${playbook.name} already has a ${stat[0].toUpperCase() + stat.slice(1)} of +2, so you can't increase it during character creation. Choose another stat, and manually increase it using the ${['creativity', 'focus', 'harmony', 'passion'].filter(s => s !== stat).map((s, i) => `${i === 2 ? 'or ' : ''}/${s}`).join(', ')} command.`);
 
         } else {
-
-            await interaction.reply('Creating your character!');
-
-            const playbook = Playbooks[interaction.options.getString('playbook')];
-            const { creativity, focus, harmony, passion } = playbook;
-
-            const newPC = PlayerCharacter.build({
-                userId: interaction.user.id,
-                name: interaction.options.getString('name'),
-                playbook: interaction.options.getString('playbook'),
-                creativity,
-                focus,
-                harmony,
-                passion,
-                backgrounds: 'Military, Wilderness',
-            })
-
-            const stat = interaction.options.getString('stat-increase');
-            
-            if (newPC[stat] === 2) {
-                await interaction.reply(`${playbook.name} already has a ${stat[0].toUpperCase() + stat.slice(1)} of +2, so you can't increase it during character creation. Choose another stat, and manually increase it using the ${['creativity', 'focus', 'harmony', 'passion'].filter(s => s !== stat).map(s, i => `${i === 2 ? 'or ' : ''}/${s}`).join(', ')} command.`);
-            } else {
-                newPC[stat]++;
-            }
-
-            newPC[interaction.options.getString('training')] = true;
-            await newPC.save();
-
-            for (let i = 0; i < otherPCs.length; i++) {
-                const PC = otherPCs[i];
-                PC.active = false;
-                await PC.save();
-            }
+            newPC[stat]++;
         }
+
+        newPC[interaction.options.getString('training')] = true;
+        await newPC.save();
+
+        await interaction.followUp('Character successfully created!');
+
+        for (let i = 0; i < otherPCs.length; i++) {
+            const PC = otherPCs[i];
+            PC.active = false;
+            await PC.save();
         }
+    }
 }
