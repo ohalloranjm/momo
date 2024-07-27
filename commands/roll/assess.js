@@ -1,6 +1,4 @@
 const { Move, Roll } = require('../../classes');
-const { PlayerCharacter } = require('../../db/models');
-const { STATS } = require('../../game_pieces');
 
 const assess = new Move('assess')
     .setTitle('Assess a Situation')

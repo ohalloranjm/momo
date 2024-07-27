@@ -40,7 +40,7 @@ class Move {
             .setDescription(move.title)
             .addIntegerOption(option => 
                 option.setName('extra-modifier')
-                    .setDescription(`An extra modifier added on top of your ${move.Stat}.`)
+                    .setDescription(`Additional modifiers on top of your ${move.Stat}, e.g. from hold or ongoing.`)
             )
             .addStringOption(option => {
                 const otherStats = STATS.filter(stat => stat !== move.stat);
@@ -50,9 +50,13 @@ class Move {
                 ];
                 otherStats.forEach(stat => choices.push({ name: stat.capitalize(), value: stat}));
                 return option.setName('alt-stat')
-                    .setDescription('A stat to use INSTEAD of Creativity.')
+                    .setDescription(`Use a different stat, balance principle, or conditions marked for this roll, instead of ${move.Stat}.`)
                     .addChoices(choices)
                 }
+            )
+            .addIntegerOption(option => 
+                option.setName('override-modifier')
+                    .setDescription(`Manually set the total modifier, ignoring all other stats, penalties, and modifiers.`)
             )
     }
 
@@ -97,7 +101,6 @@ class Move {
                 const { playbook: playbookKey } = activePC;
                 const playbook = playbooks[playbookKey];
                 const { principles } = playbook;
-                console.log(principles);
                 statName = principles[+(activePC.balance > 0)];
 
             // one of the four normal stats
@@ -112,15 +115,12 @@ class Move {
             .addModifier(interaction.options.getInteger('extra-modifier'))
             .sumTotal()
 
-        console.log(this.resultLines);
-
         this.resultLines.forEach(resultLine => {
             if (resultLine[0] === 'bullet') {
                 roll.appendBullet(...resultLine.slice(1));
             } else {
                 roll.appendText(...resultLine);
             }
-            
         })
 
         await interaction.reply(roll.composeMessage(this.title));

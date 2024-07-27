@@ -1,25 +1,16 @@
-const { SlashCommandBuilder } = require('discord.js');
-const Roll = require('../../classes/roll.js');
+const { Move } = require('../../classes');
+
+const intimidate = new Move('intimidate')
+    .setTitle('Intimidate an NPC')
+    .setStat('passion')
+    .appendToResult('hit', 'They choose one.')
+    .appendToResult('full', 'First, you pick one they cannot choose.')
+    .appendToResult('bullet', 'hit', 'They run to escape or get backup.')
+    .appendToResult('bullet', 'hit', 'They back down but keep watch.')
+    .appendToResult('bullet', 'hit', 'They give in with a few stipulations.')
+    .appendToResult('bullet', 'hit', 'They attack you, but off-balance; the GM marks a condition on them.');
 
 module.exports = { 
-    data: new SlashCommandBuilder()
-        .setName('intimidate')
-        .setDescription('Intimidate an NPC')
-        .addIntegerOption(option =>
-            option.setName('modifier')
-                .setDescription('A number to add to your roll, or a negative number to subtract from it.')
-        ),
-    async execute(interaction) {
-        await interaction.reply(new Roll('intimidate an NPC')
-            .addModifier(interaction.options.getInteger('modifier'))
-            .sumTotal()
-            .appendText('hit', 'They choose one.')
-            .appendText('full', 'First, you pick one they cannot choose.')
-            .appendBullet('hit', 'They run to escape or get backup.')
-            .appendBullet('hit', 'They back down but keep watch.')
-            .appendBullet('hit', 'They give in with a few stipulations.')
-            .appendBullet('hit', 'They attack you, but off-balance; the GM marks a condition on them.')
-            .composeMessage('Intimidate an NPC')
-        );
-    },
+    data: intimidate.command(),
+    execute: intimidate.respond.bind(intimidate)
 };
