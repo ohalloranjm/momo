@@ -12,6 +12,11 @@ class Playbook {
         return this;
     }
 
+    setBalancePrinciples(leftPrinciple, rightPrinciple) {
+        this.principles = [leftPrinciple, rightPrinciple]
+        return this;
+    }
+
 }
 
 module.exports = Playbook;

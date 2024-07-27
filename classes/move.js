@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { STATS } = require('../game_pieces');
+const { playbooks, STATS } = require('../game_pieces');
 const { PlayerCharacter } = require('../db/models');
+const Roll = require ('./roll');
 require('../formatters');
 
 class Move {
@@ -50,7 +51,7 @@ class Move {
         const { id } = interaction.user;
 
         // determine query column
-        const attributes = [];
+        const attributes = ['playbook'];
         const stat = interaction.options.getString('alt-stat') || this.stat;
 
         if (STATS.includes(stat) || stat === 'balance') {
@@ -68,35 +69,38 @@ class Move {
             }
         });
 
+        // process query for stat modifier, format name
+        let statValue;
+        let statName;
         if (activePC) {
 
-            let statValue;
+            // total number of conditions marked
             if (stat === 'conditions') {
-
-                // total number of conditions marked
                 const { conditionA, conditionB, conditionC, conditionD, conditionE } = activePC;
                 statValue = [ conditionA, conditionB, conditionC, conditionD, conditionE ].reduce((sum, marked) => +marked + sum, 0);
+                statName = 'Conditions Marked';
 
-                statValue = activePC.stat;
-
+            // highest rated balance principle
             } else if (stat === 'balance') {
-
-                // highest rated balance principle
                 statValue = Math.abs(activePC.balance);
+                const { playbook: playbookKey } = activePC;
+                const playbook = playbooks[playbookKey];
+                const { principles } = playbook;
+                console.log(principles);
+                statName = principles[+(activePC.balance > 0)];
 
+            // one of the four normal stats
             } else {
-
-                // the four normal stats
                 statValue = activePC[stat];
+                statName = stat.capitalize();
             }
 
-            await interaction.reply(new Roll()
-                .addModifier(statModifier, statName)
-                
-        )
-        } else {
-            await interaction.reply(`We didn't find you in the database. Make a new character!`)
+            const roll = new Roll()
+
         }
+
+        await interaction.reply(`Hello! ${statName}: ${statValue}`);
+
     }
 
     

@@ -9,15 +9,6 @@ const assess = new Move('assess')
 module.exports = { 
     data: assess.command(),
     execute: assess.respond.bind(assess)
-    // async execute(interaction) {
-    //     const { id } = interaction.user;
-    //     const activePC = await PlayerCharacter.findOne({
-    //         attributes: STATS,
-    //         where: {
-    //             userId: id,
-    //             active: true
-    //         }
-    //     })
 
     //     await interaction.reply(new Roll()
     //         .setStat('creativity')
