@@ -2,6 +2,10 @@
 const {
   Model
 } = require('sequelize');
+
+require('../../formatters');
+const { playbooks } = require('../../game_pieces');
+
 module.exports = (sequelize, DataTypes) => {
   class PlayerCharacter extends Model {
 
@@ -11,9 +15,37 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'pcId',
         otherKey: 'techniqueId'
       })
+    };
+
+    static backgroundList = ['Military', 'Monastic', 'Outlaw', 'Privileged', 'Urban', 'Wilderness'];
+
+    // returns an array of marked conditions
+    // toggle user view to output a string instead
+    conditionList(userView) {
+      const conditionNames = this.playbook === 'elder' ? ['frustrated', 'jaded', 'remorseful', 'shaken', 'worried'] : ['afraid', 'angry', 'insecure', 'guilty', 'troubled'];
+
+      const conditionMarks = [ this.conditionA, this.conditionB, this.conditionC, this.conditionD, this.conditionE ]
+
+      const list = conditionNames.filter((_c, i) => conditionMarks[i]);
+
+      if (!userView) return list;
+      if (!list.length) return 'No Conditions';
+      return list.map(condition => condition.capitalize()).join(', ')
+      
     }
 
-    static backgroundList = ['Military', 'Monastic', 'Outlaw', 'Privileged', 'Urban', 'Wilderness']
+    trainingList(userView) {
+      const trainings = ['waterbending', 'earthbending', 'firebending', 'airbending', 'weapons', 'technology']
+      const list = trainings.filter(training => this[training]);
+
+      if (!userView) return list;
+      if (!list.length) return 'Error: No training found';
+      return list.map(training => training.capitalize()).join(', ')
+    }
+
+    getPlaybook() {
+      return playbooks[this.playbook]
+    }
     
   }
   

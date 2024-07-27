@@ -48,8 +48,7 @@ module.exports = {
         ),
     async execute(interaction) {
 
-        await interaction.reply({
-            content: 'Creating your character',
+        await interaction.deferReply({
             ephemeral: true
         })
 
