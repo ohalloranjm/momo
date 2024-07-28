@@ -1,4 +1,5 @@
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
+require('../../functions/getPC.js');
 
 module.exports = { 
     data: new SlashCommandBuilder()
@@ -11,23 +12,9 @@ module.exports = {
             .setDescription('description test')
         ),
     async execute(interaction) {
-        const embed = new EmbedBuilder()
-            .setColor(0x5555FF)
-            .setTitle('Some title')
-            .setAuthor({ name: 'Some name', iconURL: 'https://i.imgur.com/AfFp7pu.png' })
-            .setThumbnail('https://i.imgur.com/AfFp7pu.png')
-            .setDescription('Some description here')
-            .setURL('https://discord.js.org/')
-            .addFields(
-                { name: 'Trick', value: ':game_die: (2, 2) + 3 (:bulb:) = 7' },
-                { name: 'Result', value: 'You pull it off. Choose one.\n* They are deceived for some time\n* They act foolishly; the GM tells you what additional opportunity they give you' },
-            )
-            .setImage('https://i.imgur.com/AfFp7pu.png')
-            .setTimestamp()
-            .setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
-        await interaction.reply({
-            content: "ayup",
-            embeds: [embed]
+        const pc = await interaction.getPC({
+            info: ['balance']
         });
+        await interaction.reply(`Hi, ${pc.name} the ${pc.playbook}. You have ${pc.conditionsMarked()} conditions marked, and they're ${pc.conditionList(true)}`);
     },
 };

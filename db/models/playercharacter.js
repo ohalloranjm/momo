@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 
-require('../../formatters');
+require('../../functions');
 const { playbooks } = require('../../game_pieces');
 
 module.exports = (sequelize, DataTypes) => {
@@ -32,6 +32,15 @@ module.exports = (sequelize, DataTypes) => {
       if (!list.length) return 'No Conditions';
       return list.map(condition => condition.capitalize()).join(', ')
       
+    }
+
+    // return the total number of conditions marked (integer from 0 to 5)
+    conditionsMarked() {
+
+      const conditions = [ this.conditionA, this.conditionB, this.conditionC, this.conditionD, this.conditionE ]
+
+      return conditions.reduce((sum, condition) => +condition + sum, 0);
+
     }
 
     trainingList(userView) {

@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { playbooks, STATS } = require('../game_pieces');
 const { PlayerCharacter } = require('../db/models');
 const Roll = require ('./roll');
-require('../formatters');
+require('../functions');
 
 class Move {
 
