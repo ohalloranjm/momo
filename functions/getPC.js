@@ -1,5 +1,5 @@
 const { BaseInteraction } = require('discord.js');
-const { PlayerCharacter } = require('../db/models');
+const { PlayerCharacter } = require('../database/models');
 const { Op } = require('sequelize');
 const { conditions, STATS, STATUSES, TRAININGS } = require('../constants');
 

@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 
 require('../../functions');
-const { playbooks } = require('../../game_pieces');
+const { playbooks } = require('../../playbooks');
 
 module.exports = (sequelize, DataTypes) => {
   class PlayerCharacter extends Model {

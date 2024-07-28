@@ -1,6 +1,5 @@
 const icon = require('../settings/icon.js');
 const { EmbedBuilder, Embed } = require('discord.js');
-const { STATS } = require('../game_pieces');
 
 class Roll {
     constructor(action) {
