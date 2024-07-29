@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('discord.js')
 const { PlayerCharacter } = require('../../database/models');
 
 module.exports = {
+    alias: 'f',
     data: new SlashCommandBuilder()
         .setName('fatigue')
         .setDescription('Mark fatigue')

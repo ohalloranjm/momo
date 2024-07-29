@@ -3,3 +3,4 @@
 *.sh
 node_modules
 package-lock.json
+scratch.js

@@ -4,6 +4,7 @@ const { conditions } = require('../../constants');
 require('../../functions');
 
 module.exports = {
+    alias: 'c',
     data: new SlashCommandBuilder()
         .setName('condition')
         .setDescription('Mark one or more conditions')
