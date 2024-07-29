@@ -10,10 +10,13 @@ module.exports = {
 
     async execute(interaction) {
         const { id } = interaction.user;
-        const playerCharacters = await PlayerCharacter.findAll({
+        const roster = await PlayerCharacter.findAll({
             attributes: ['name', 'playbook', 'active'],
             where: { userId: id }
         })
-        await interaction.reply(playerCharacters.map(pc => `* ${pc.name}: The ${pc.playbook.capitalize()}${pc.active ? ' [active PC]' : ''}`).join('\n'))
+
+        if(!roster.length) return await interaction.reply('You have no PCs')
+
+        await interaction.reply(roster.map(pc => `* ${pc.name}: The ${pc.playbook.capitalize()}${pc.active ? ' [active PC]' : ''}`).join('\n'))
     }
 }

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
+require('../../functions/getPC');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,13 +13,7 @@ module.exports = {
         ),
     async execute(interaction) {
         
-        const { id } = interaction.user;
-        const name = interaction.options.getString('name');
-
-        const roster = await PlayerCharacter.findAll({
-            attributes: [ 'id', 'userId', 'name'],
-            where: { userId: id }
-        })
+        const roster = await interaction.getPC({ roster: true });
 
         const { length } = roster;
 

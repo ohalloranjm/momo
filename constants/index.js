@@ -1,6 +1,7 @@
 module.exports = {
+    BACKGROUNDS: ['Military', 'Monastic', 'Outlaw', 'Privileged', 'Urban', 'Wilderness'],
     conditions: {
-        QUERY: [ 'ConditionA', 'ConditionB', 'ConditionC', 'ConditionD', 'conditionE' ],
+        QUERY: [ 'conditionA', 'conditionB', 'conditionC', 'conditionD', 'conditionE' ],
         DEFAULT: [ 'afraid', 'angry', 'guilty', 'insecure', 'troubled' ],
         ELDER: [ 'frustrated', 'jaded', 'remorseful', 'shaken', 'worried' ]
     },
