@@ -12,8 +12,10 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction) {
+
+        const name = interaction.options.getString('name');
         
-        const roster = await interaction.getPC({ roster: true });
+        const roster = await PlayerCharacter.fetch(interaction, { roster: true });
 
         const { length } = roster;
 

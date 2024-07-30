@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       // { roster: true }: return an array of all the user's PCs, not just active ones
       if (roster) {
         query = this.findAll.bind(this);
-        where[active] = { [Op.or]: [ true, false ] };
+        where.active = { [Op.or]: [ true, false ] };
       }
 
       // { allInfo: true }: return all attributes, not just name
