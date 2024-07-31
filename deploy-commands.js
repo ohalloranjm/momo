@@ -1,7 +1,6 @@
 const { REST, Routes, SlashCommandBuilder } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { alias } = require('./commands/set/condition');
 require('dotenv').config();
 
 const commands = [];
