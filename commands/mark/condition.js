@@ -9,8 +9,8 @@ module.exports = {
         .setName('condition')
         .setDescription('Mark one or more conditions')
         .addStringOption(option =>
-            option.setName('condition')
-                .setDescription('The name of the condition to mark')
+            option.setName('conditions')
+                .setDescription('The name of the condition or conditions to mark, space and/or comma separated')
         ),
     async execute(interaction) {
         await interaction.deferReply();
@@ -79,14 +79,12 @@ module.exports = {
         targetConditions.forEach(condition => {
             const lcCondition = condition.toLowerCase();
             if (playbookConditions.includes(lcCondition)) {
-                const conditionKey = conditions.QUERY[playbookConditions.indexOf(lcCondition)]
-                console.log('conditionKey', conditionKey);
+                const conditionKey = conditions.QUERY[playbookConditions.indexOf(lcCondition)];
                 if (pc[conditionKey]) {
-                    msgArr.push(`* ${pc.name} is already ${condition.capitalize()}. Choose another condition.`)
+                    msgArr.push(`* ${pc.name} is already ${condition.capitalize()}. Choose a different condition to mark.`)
                 } else {
                     pc[conditionKey] = true;
                     savePC = true;
-                    console.log('savePC', savePC)
                     msgArr.push(`* ${pc.name} marks ${condition.capitalize()}!`);
                 }
             } else {
@@ -95,7 +93,7 @@ module.exports = {
         })
 
         if (savePC) await pc.save();
-        interaction.followUp(msgArr.join('\n'));
+        await interaction.followUp(msgArr.join('\n'));
         
     } 
 }
