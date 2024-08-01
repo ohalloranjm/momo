@@ -98,6 +98,23 @@ module.exports = (sequelize, DataTypes) => {
 
     }
 
+    // shiftBalance
+    async shiftBalance(options) {
+      const steps = 'steps' in options && !isNaN(options.steps) ? +options.steps : 1;
+      const { principles } = this.getPlaybook();
+      const directionLookup = {
+        [principles[0]]: -1,
+        [principles[1]]: 1,
+        'left': -1,
+        'right': 1,
+        'away': this.balance === this.center ? 1 : (this.balance - this.center) / Math.abs(this.balance - this.center),
+        'center': this.balance === this.center ? 0 : (this.center - this.balance) / Math.abs(this.center - this.balance),
+        '-1': -1,
+        '1': 1
+      }
+      const direction = 'direction' in options && options.direction.toLowerCase() in directionLookup ? directionLookup[options.direction] : directionLookup.away
+    }
+
     trainingList(userView) {
       const trainings = ['waterbending', 'earthbending', 'firebending', 'airbending', 'weapons', 'technology']
       const list = trainings.filter(training => this[training]);
