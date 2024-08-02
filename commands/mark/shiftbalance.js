@@ -16,5 +16,10 @@ module.exports = {
             info: 'balance'
         })
         await interaction.followUp(`Your balance is ${pc.balance}, your center is ${pc.center}, and your playbook is The ${pc.playbook.capitalize()}`);
+
+        const principle = interaction.options.getString('principle');
+        if (!principle) await pc.shiftBalance([])
+
+        console.log(principle);
     }
 }
