@@ -133,6 +133,7 @@ module.exports = (sequelize, DataTypes) => {
         if (principle === 'center') {
           result.newBalance = this.balance;
           result.status = 'already-center';
+          result.message = 'Your balance is already at your center.';
           return result;
         }
       }
@@ -160,10 +161,12 @@ module.exports = (sequelize, DataTypes) => {
       const shift = direction * steps;
       const targetBalance = this.balance + shift;
 
+      result.shifted = principles[(direction + 1) / 2].capitalize();
+
       if (targetBalance < -3) {
         this.balance = -3;
         result.status = 'lose-balance';
-        result.message = `You shift your balance off the edge of your track, causing you to **lose your balance** toward ${principles[0].capitalize()}—unless you are in the middle of a combat exchange (wait until the end of the exchange to lose your balance) or in between sessions (don’t lose your balance).`;
+        result.message = `${this.name} shifts their balance off the edge of their track. Confirm **lose your balance**? (If you are in a combat exchange, wait for the exchange to end. If you are in between sessions, don’t lose your balance.)`;
       } else if (targetBalance > 3) {
         this.balance = 3;
         result.status = 'lose-balance';
@@ -171,6 +174,7 @@ module.exports = (sequelize, DataTypes) => {
       } else {
         this.balance = targetBalance;
         result.status = 'shifted-balance';
+        result.message = `${this.name} shifts their balance toward ${result.shifted}.`;
       }
 
       await this.save();

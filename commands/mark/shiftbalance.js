@@ -31,7 +31,7 @@ module.exports = {
       ? await pc.shiftBalance(target)
       : {
           status: 'need-principle',
-          message: 'Click a principle to choose it.',
+          message: 'Choose a principle to shift toward.',
         };
 
     // if no principle or an invalid principle is supplied, prompt with buttons
@@ -59,14 +59,14 @@ module.exports = {
 
         shift = await pc.shiftBalance(confirmPrinciple.customId);
 
-        await interaction.editReply({
-          content: 'Hell yeah.',
+        await confirmPrinciple.update({
+          content: `:thumbsup:`,
           components: [],
         });
       } catch (e) {
         console.error(e);
         await interaction.editReply({
-          content: 'Confirmation not received within 1 minute, cancelling',
+          content: 'Answer not received within 1 minute, cancelling',
           components: [],
         });
       }
@@ -78,27 +78,53 @@ module.exports = {
         new ButtonBuilder()
           .setCustomId('lose')
           .setStyle(ButtonStyle.Primary)
-          .setLabel(
-            `Lose Balance toward ${
-              pc.balance < 0 ? principles[0] : principles[1]
-            }`,
-            new ButtonBuilder()
-              .setCustomId('keep')
-              .setStyle(ButtonStyle.Secondary)
-              .setLabel('Don’`t Lose Balance')
-          )
+          .setLabel(`Lose Balance toward ${shift.shifted}`),
+        new ButtonBuilder()
+          .setCustomId('keep')
+          .setStyle(ButtonStyle.Secondary)
+          .setLabel('Don’t Lose Balance')
       );
-      const leftButton = new ButtonBuilder()
-        .setCustomId('left')
-        .setStyle(ButtonStyle.Primary)
-        .setLabel(`${principles[0].capitalize()} (${(-pc.balance).sign()})`);
-      const rightButton = new ButtonBuilder()
-        .setCustomId('right')
-        .setStyle(ButtonStyle.Primary)
-        .setLabel(`${principles[1].capitalize()} (${pc.balance.sign()})`);
-      row.addComponents(leftButton, rightButton);
+
+      const lose = await interaction.followUp({
+        content: shift.message,
+        components: [row],
+      });
+
+      try {
+        const confirmLose = await lose.awaitMessageComponent({
+          filter: i => i.user.id === interaction.user.id,
+          time: 60_000,
+        });
+
+        await confirmLose.update({
+          content:
+            confirmLose.customId === 'lose'
+              ? 'Feature Coming Soon'
+              : 'Fine, keep your secrets',
+          components: [],
+        });
+      } catch (e) {
+        console.error(e);
+        await interaction.editReply({
+          content: 'Confirmation not received within 1 minute, cancelling',
+          components: [],
+        });
+      }
     }
 
-    console.log(shift);
+    // standard success message
+    if (shift.status === 'shifted-balance') {
+      await interaction.followUp(
+        shift.message +
+          ` ${(-shift.newBalance).sign()} ${
+            principles[0]
+          } / ${shift.newBalance.sign()} ${principles[1]}`
+      );
+    }
+
+    // specifically for '/b center' when already at center
+    if (shift.status === 'already-center') {
+      await interaction.followUp(shift.message);
+    }
   },
 };
