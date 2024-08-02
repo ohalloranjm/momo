@@ -24,14 +24,17 @@ module.exports = {
     const pc = await PlayerCharacter.fetch(interaction, {
       info: 'balance',
     });
-
-    let target = interaction.options.getString('principle') || 'away';
     const { principles } = pc.getPlaybook();
 
-    // defaults to shifting away from center
-    let shift = await pc.shiftBalance(target);
+    let target = interaction.options.getString('principle');
+    let shift = target
+      ? await pc.shiftBalance(target)
+      : {
+          status: 'need-principle',
+          message: 'Click a principle to choose it.',
+        };
 
-    // if balance is at center and no principle is supplied, ask for principle and try again
+    // if no principle or an invalid principle is supplied, prompt with buttons
     if (shift.status === 'need-principle') {
       const row = new ActionRowBuilder();
       const leftButton = new ButtonBuilder()
@@ -44,20 +47,15 @@ module.exports = {
         .setLabel(`${principles[1].capitalize()} (${pc.balance.sign()})`);
       row.addComponents(leftButton, rightButton);
       const click = await interaction.followUp({
-        content:
-          'Your balance is currently at your center. Choose a principle to shift toward.',
+        content: shift.message,
         components: [row],
       });
 
-      const collectorFilter = i => i.user.id === interaction.user.id;
-
       try {
         const confirmPrinciple = await click.awaitMessageComponent({
-          filter: collectorFilter,
-          time: 10_000,
+          filter: i => i.user.id === interaction.user.id,
+          time: 60_000,
         });
-
-        console.log(confirmPrinciple.customId);
 
         shift = await pc.shiftBalance(confirmPrinciple.customId);
 
@@ -74,7 +72,7 @@ module.exports = {
       }
     }
 
-    // if shifting causes loss of balance, check whether it's between sessions
+    // if shifting causes loss of balance, confirm with player
     if (shift.status === 'lose-balance') {
       const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
@@ -87,7 +85,7 @@ module.exports = {
             new ButtonBuilder()
               .setCustomId('keep')
               .setStyle(ButtonStyle.Secondary)
-              .setLabel("Don't Lose Balance")
+              .setLabel('Don’`t Lose Balance')
           )
       );
       const leftButton = new ButtonBuilder()

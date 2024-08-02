@@ -125,9 +125,8 @@ module.exports = (sequelize, DataTypes) => {
         if (principle === 'away') {
           result.newBalance = this.balance;
           result.status = 'need-principle';
-          result.callback = function (newPrinciple) {
-            return this.shiftBalance(newPrinciple, steps);
-          };
+          result.message =
+            'Your balance is currently at your center. Choose a principle to shift toward.';
           return result;
         }
 
@@ -151,7 +150,8 @@ module.exports = (sequelize, DataTypes) => {
 
       if (!(principle.toLowerCase() in principleLookup)) {
         result.newBalance = this.balance;
-        result.status = 'invalid-principle';
+        result.status = 'need-principle';
+        result.message = `${principle} is not a valid principle for your playbook. Choose a principle to shift toward.`;
         return result;
       }
 
@@ -163,9 +163,11 @@ module.exports = (sequelize, DataTypes) => {
       if (targetBalance < -3) {
         this.balance = -3;
         result.status = 'lose-balance';
+        result.message = `You shift your balance off the edge of your track, causing you to **lose your balance** toward ${principles[0].capitalize()}—unless you are in the middle of a combat exchange (wait until the end of the exchange to lose your balance) or in between sessions (don’t lose your balance).`;
       } else if (targetBalance > 3) {
         this.balance = 3;
         result.status = 'lose-balance';
+        result.message = `You shift your balance off the edge of your track, causing you to **lose your balance** toward ${principles[1].capitalize()}—unless you are in the middle of a combat exchange (wait until the end of the exchange to lose your balance) or in between sessions (don’t lose your balance).`;
       } else {
         this.balance = targetBalance;
         result.status = 'shifted-balance';
