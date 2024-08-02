@@ -184,6 +184,31 @@ module.exports = (sequelize, DataTypes) => {
       return result;
     }
 
+    // shiftCenter
+    async shiftCenter(d) {
+      if (d !== 1 || d !== -1) throw RangeError('d must be 1 or -1');
+      const result = { oldCenter: this.center };
+      const { principles } = this.getPlaybook();
+
+      if (Math.abs(this.center + d) > 3) {
+        result.message(
+          'Momo cannot shift your center off the edge of your balance track.'
+        );
+        result.newCenter = this.center;
+        return result;
+      } else {
+        this.center += d;
+        await this.save();
+        this.newCenter = this.center;
+        this.message = `${this.name} shifts their center toward ${
+          d < 0 ? principles[0] : principles[1]
+        }. New center: ${(-this.center).sign()} ${
+          principles[0]
+        } / ${this.center.sign()} ${principles[1]}.`;
+        return this.result;
+      }
+    }
+
     trainingList(userView) {
       const trainings = [
         'waterbending',
