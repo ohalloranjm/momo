@@ -99,20 +99,66 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     // shiftBalance
-    async shiftBalance(options) {
-      const steps = 'steps' in options && !isNaN(options.steps) ? +options.steps : 1;
+    async shiftBalance(principle = 'away', steps = 1) {
+      steps = isNaN(steps) ? 1 : +steps;
+
       const { principles } = this.getPlaybook();
-      const directionLookup = {
-        [principles[0]]: -1,
-        [principles[1]]: 1,
+      const result = { principles, priorBalance: this.balance }
+
+      if (this.balance === this.center) {
+
+        if (principle === 'away') {
+          result.newBalance = this.balance;
+          result.status = 'need-principle';
+          return result
+        }
+
+        if (principle === 'center') {
+          result.newBalance = this.balance;
+          result.status = 'already-center';
+          return result;
+        }
+      }
+
+      const principleLookup = {
+        [principles[0].toLowerCase()]: -1,
+        [principles[1].toLowerCase()]: 1,
         'left': -1,
         'right': 1,
-        'away': this.balance === this.center ? 1 : (this.balance - this.center) / Math.abs(this.balance - this.center),
-        'center': this.balance === this.center ? 0 : (this.center - this.balance) / Math.abs(this.center - this.balance),
+        'away': this.balance > this.center ? 1 : -1,
+        'center': this.balance > this.center ? -1 : 1,
         '-1': -1,
         '1': 1
       }
-      const direction = 'direction' in options && options.direction.toLowerCase() in directionLookup ? directionLookup[options.direction] : directionLookup.away
+
+      if (!(principle.toLowerCase() in principleLookup)) {
+        result.newBalance = this.balance;
+        result.status = 'invalid-principle';
+        return result;
+      }
+
+      const direction = principleLookup[principle];
+
+      const shift = direction * steps;
+      const targetBalance = this.balance + shift; 
+      
+      if (targetBalance < -3) {
+        this.balance = -3;
+        result.status = 'lose-balance'
+      } else if (targetBalance > 3) {
+        this.balance = 3;
+        result.status = 'lose-balance'
+      } else {
+        this.balance = targetBalance;
+        result.status = 'shifted-balance'
+      }
+
+      await this.save();
+
+      result.newBalance = this.balance;
+
+      return result;
+
     }
 
     trainingList(userView) {
