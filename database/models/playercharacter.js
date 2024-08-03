@@ -1,6 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
-
+const path = require('node:path');
+const fs = require('node:fs');
 require('../../functions');
 const playbooks = require('../../playbooks');
 const { Op } = require('sequelize');
@@ -82,24 +83,6 @@ module.exports = (sequelize, DataTypes) => {
 
     // returns an array of marked conditions
     // toggle user view to output a string instead
-    conditionList(userView) {
-      const conditionNames =
-        this.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
-
-      const conditionMarks = [
-        this.conditionA,
-        this.conditionB,
-        this.conditionC,
-        this.conditionD,
-        this.conditionE,
-      ];
-
-      const list = conditionNames.filter((_c, i) => conditionMarks[i]);
-
-      if (!userView) return list;
-      if (!list.length) return 'No Conditions';
-      return list.map(condition => condition.capitalize()).join(', ');
-    }
 
     // return the total number of conditions marked (integer from 0 to 5)
     conditionsMarked() {
@@ -243,6 +226,23 @@ module.exports = (sequelize, DataTypes) => {
 
     getPlaybook() {
       return playbooks[this.playbook];
+    }
+  }
+
+  // apply custom methods
+  const methodsPath = path.join(__dirname, 'methods', 'playercharacter');
+  const methodFiles = fs
+    .readdirSync(methodsPath)
+    .filter(file => file.endsWith('.js'));
+  for (const file of methodFiles) {
+    const filePath = path.join(methodsPath, file);
+    const data = require(filePath);
+    if ('key' in data && 'value' in data) {
+      PlayerCharacter.prototype[data.key] = data.value;
+    } else {
+      console.error(
+        `[WARNING] The method at ${filePath} is missing a required "key" or "value" property.`
+      );
     }
   }
 
