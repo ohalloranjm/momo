@@ -208,6 +208,23 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
+    // resetBalance
+    async resetBalance() {
+      const result = { oldBalance: this.balance };
+
+      if (this.balance === this.center) {
+        result.newBalance = this.balance;
+        result.message = `${pc.name}’s balance is already at their center.`;
+        return result;
+      }
+
+      this.balance = this.center;
+      result.newBalance = this.center;
+      result.message = `${pc.name} takes some time to recenter themself, returning their balance to center.`;
+      await this.save();
+      return result;
+    }
+
     trainingList(userView) {
       const trainings = [
         'waterbending',
