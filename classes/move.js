@@ -80,19 +80,18 @@ class Move {
     const { id } = interaction.user;
 
     // determine query column
-    const attributes = ['playbook'];
+    const attributes = [
+      'playbook',
+      'conditionA',
+      'conditionB',
+      'conditionC',
+      'conditionD',
+      'conditionE',
+    ];
     const stat = interaction.options.getString('alt-stat') || this.stat;
 
     if (STATS.includes(stat) || stat === 'balance') {
       attributes.push(stat);
-    } else if (stat === 'conditions') {
-      attributes.push(
-        'conditionA',
-        'conditionB',
-        'conditionC',
-        'conditionD',
-        'conditionE'
-      );
     }
 
     // query database for active player
@@ -136,19 +135,20 @@ class Move {
       }
     }
 
-    const roll = new Roll()
-      .addModifier(statValue, statName)
-      .addModifier(interaction.options.getInteger('extra-modifier'));
+    const roll = new Roll().addModifier(statValue, statName);
 
     if (this.conditionModifiers) {
       const condition = activePC
         .conditionList()
         .find(c => Object.keys(this.conditionModifiers).includes(c));
-      roll.addModifier(
-        this.conditionModifiers[condition],
-        condition.capitalize()
-      );
+      if (condition)
+        roll.addModifier(
+          this.conditionModifiers[condition],
+          condition.capitalize()
+        );
     }
+
+    roll.addModifier(interaction.options.getInteger('extra-modifier'));
 
     roll.sumTotal();
 
