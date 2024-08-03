@@ -214,13 +214,13 @@ module.exports = (sequelize, DataTypes) => {
 
       if (this.balance === this.center) {
         result.newBalance = this.balance;
-        result.message = `${pc.name}’s balance is already at their center.`;
+        result.message = `${this.name}’s balance is already at their center.`;
         return result;
       }
 
       this.balance = this.center;
       result.newBalance = this.center;
-      result.message = `${pc.name} takes some time to recenter themself, returning their balance to center.`;
+      result.message = `${this.name} takes some time to recenter themself, returning their balance to center.`;
       await this.save();
       return result;
     }
