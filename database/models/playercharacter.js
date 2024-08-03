@@ -186,7 +186,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // shiftCenter
     async shiftCenter(d) {
-      if (d !== 1 || d !== -1) throw RangeError('d must be 1 or -1');
+      if (d !== 1 && d !== -1) throw RangeError('d must be 1 or -1');
       const result = { oldCenter: this.center };
       const { principles } = this.getPlaybook();
 
@@ -199,13 +199,13 @@ module.exports = (sequelize, DataTypes) => {
       } else {
         this.center += d;
         await this.save();
-        this.newCenter = this.center;
-        this.message = `${this.name} shifts their center toward ${
+        result.newCenter = this.center;
+        result.message = `${this.name} shifts their center toward ${
           d < 0 ? principles[0] : principles[1]
         }. New center: ${(-this.center).sign()} ${
           principles[0]
         } / ${this.center.sign()} ${principles[1]}.`;
-        return this.result;
+        return result;
       }
     }
 
