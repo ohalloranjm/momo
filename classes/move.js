@@ -25,8 +25,8 @@ class Move {
   }
 
   addConditionModifier(condition, modifier = -2) {
-    if (!this.conditions) this.conditions = {};
-    this.conditions[condition] = modifier;
+    if (!this.conditionModifiers) this.conditionModifiers = {};
+    this.conditionModifiers[condition] = modifier;
     return this;
   }
 
@@ -138,8 +138,19 @@ class Move {
 
     const roll = new Roll()
       .addModifier(statValue, statName)
-      .addModifier(interaction.options.getInteger('extra-modifier'))
-      .sumTotal();
+      .addModifier(interaction.options.getInteger('extra-modifier'));
+
+    if (this.conditionModifiers) {
+      const condition = activePC
+        .conditionList()
+        .find(c => Object.keys(this.conditionModifiers).includes(c));
+      roll.addModifier(
+        this.conditionModifiers[condition],
+        condition.capitalize()
+      );
+    }
+
+    roll.sumTotal();
 
     this.resultLines.forEach(resultLine => {
       if (resultLine[0] === 'bullet') {
