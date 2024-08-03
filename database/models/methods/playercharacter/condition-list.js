@@ -1,7 +1,11 @@
+// returns an array of marked conditions
+// toggle user view to output a string instead
+
 const { conditions } = require('../../../../constants');
 
 module.exports = {
   key: 'conditionList',
+
   value(userView) {
     const conditionNames =
       this.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
