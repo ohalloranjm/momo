@@ -22,10 +22,13 @@ module.exports = {
     const roll = new Roll().addModifier(
       interaction.options.getInteger('modifier')
     );
-    if (pc.conditionList().includes('afraid')) {
-      roll.addModifier(-2, 'Afraid');
-    } else if (pc.conditionList().includes('remorseful')) {
-      roll.addModifier(1, 'Remorseful');
+
+    if (pc) {
+      if (pc.conditionList().includes('afraid')) {
+        roll.addModifier(-2, 'Afraid');
+      } else if (pc.conditionList().includes('remorseful')) {
+        roll.addModifier(1, 'Remorseful');
+      }
     }
 
     await interaction.followUp(
