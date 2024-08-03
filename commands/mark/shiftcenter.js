@@ -54,15 +54,16 @@ module.exports = {
           time: 60_000,
         });
 
-        const d = chosenPrinciple === 'left' ? -1 : 1;
+        const d = chosenPrinciple.customId === 'left' ? -1 : 1;
         shift = await pc.shiftCenter(d);
+        console.log(shift);
         await chosenPrinciple.update({
           content: shift.message,
           components: [],
         });
       } catch (err) {
         console.error(err);
-        await chosenPrinciple.update({
+        await choosePrinciple.update({
           content: 'Timed out after 1 minute.',
           components: [],
         });

@@ -191,9 +191,8 @@ module.exports = (sequelize, DataTypes) => {
       const { principles } = this.getPlaybook();
 
       if (Math.abs(this.center + d) > 3) {
-        result.message(
-          'Momo cannot shift your center off the edge of your balance track.'
-        );
+        result.message =
+          'Momo cannot shift your center off the edge of your balance track.';
         result.newCenter = this.center;
         return result;
       } else {
