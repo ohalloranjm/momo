@@ -4,6 +4,7 @@ const assess = new Move('assess')
   .setTitle('Assess a Situation')
   .setStat('creativity')
   .addConditionModifier('angry')
+  .addConditionModifier('shaken', 1)
   .appendToResult(
     'full',
     'Ask two questions. Take +1 ongoing while acting on the answers.'

@@ -4,6 +4,7 @@ const plead = new Move('plead')
   .setTitle('Plead with an NPC')
   .setStat('harmony')
   .addConditionModifier('troubled')
+  .addConditionModifier('jaded')
   .appendToResult(
     'full',
     'They act now and do their best until the situation changes.'

@@ -4,6 +4,7 @@ const guide = new Move('guide')
   .setTitle('Guide and Comfort')
   .setStat('harmony')
   .addConditionModifier('angry')
+  .addConditionModifier('shaken')
   .appendToResult('hit', 'They choose one:')
   .appendToResult(
     'bullet',
