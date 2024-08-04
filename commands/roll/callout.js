@@ -24,9 +24,9 @@ module.exports = {
     );
 
     if (pc) {
-      if (pc.conditionList().includes('afraid')) {
+      if (pc.conditionList().includes('Afraid')) {
         roll.addModifier(-2, 'Afraid');
-      } else if (pc.conditionList().includes('remorseful')) {
+      } else if (pc.conditionList().includes('Remorseful')) {
         roll.addModifier(1, 'Remorseful');
       }
     }

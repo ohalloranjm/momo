@@ -26,9 +26,9 @@ module.exports = {
 
     if (pc) {
       const markedConditions = pc.conditionList();
-      if (markedConditions.includes('guilty')) {
+      if (markedConditions.includes('Guilty')) {
         roll.addModifier(2, 'Guilty');
-      } else if (markedConditions.includes('worried')) {
+      } else if (markedConditions.includes('Worried')) {
         roll.addModifier(2, 'Worried');
       }
     }

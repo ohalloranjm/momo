@@ -24,7 +24,7 @@ module.exports = {
       info: ['conditions', 'playbook'],
     });
 
-    if (pc && pc.conditionList().includes('remorseful')) {
+    if (pc && pc.conditionList().includes('Remorseful')) {
       roll.addModifier(-2, 'Remorseful');
     }
 

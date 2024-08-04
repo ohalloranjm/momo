@@ -3,8 +3,8 @@ const { Move } = require('../../classes');
 const push = new Move('push')
   .setTitle('Push Your Luck')
   .setStat('passion')
-  .addConditionModifier('guilty')
-  .addConditionModifier('frustrated')
+  .addConditionModifier('Guilty')
+  .addConditionModifier('Frustrated')
   .appendToResult(
     'hit',
     'You do it, but it costs you to scrape by; the GM tells you what it costs you.'

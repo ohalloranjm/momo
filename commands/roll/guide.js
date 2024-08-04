@@ -3,8 +3,8 @@ const { Move } = require('../../classes');
 const guide = new Move('guide')
   .setTitle('Guide and Comfort')
   .setStat('harmony')
-  .addConditionModifier('angry')
-  .addConditionModifier('shaken')
+  .addConditionModifier('Angry')
+  .addConditionModifier('Shaken')
   .appendToResult('hit', 'They choose one:')
   .appendToResult(
     'bullet',
