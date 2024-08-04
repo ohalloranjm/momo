@@ -37,7 +37,7 @@ module.exports = {
       pc.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
     const alreadyMarked = pc.conditionList();
 
-    const commandString = interaction.options.getString('condition');
+    const commandString = interaction.options.getString('conditions');
 
     if (!commandString) {
       // send a button per condition, disabled if it's chosen, and await the clicking of those buttons
@@ -84,10 +84,14 @@ module.exports = {
       return;
     }
 
-    const targetConditions = commandString.betterSplit(', ', ',', ' ');
+    const targetConditions = commandString
+      .betterSplit(', ', ',', ' ')
+      .map(str => str[0].toUpperCase() + str.slice(1));
 
     let msgArr = [];
     let savePC = false;
+
+    console.log(targetConditions);
 
     for (const condition of targetConditions) {
       if (playbookConditions.includes(condition)) {
