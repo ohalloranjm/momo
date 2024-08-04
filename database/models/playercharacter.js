@@ -238,30 +238,17 @@ module.exports = (sequelize, DataTypes) => {
           max: 5,
         },
       },
-      conditionA: {
-        type: DataTypes.BOOLEAN,
+      conditions: {
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: false,
-      },
-      conditionB: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      conditionC: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      conditionD: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      conditionE: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
+        defaultValue: '00000',
+        validate: {
+          len: [5, 5],
+          binary(str) {
+            if (str.split('').some(char => !['0', '1'].includes(char)))
+              throw Error('String must be composed of only 1s and 0s.');
+          },
+        },
       },
       empowered: {
         type: DataTypes.BOOLEAN,
