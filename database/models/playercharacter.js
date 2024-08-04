@@ -55,7 +55,6 @@ module.exports = (sequelize, DataTypes) => {
           'advancePassion',
         ],
         balance: ['playbook', 'balance', 'center'],
-        conditions: conditions.QUERY,
         stats: STATS,
         statuses: STATUSES,
         training: TRAININGS,

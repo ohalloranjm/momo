@@ -46,7 +46,7 @@ module.exports = {
 
       playbookConditions.forEach((condition, i) => {
         const button = new ButtonBuilder()
-          .setCustomId(i)
+          .setCustomId(String(i))
           .setLabel(condition)
           .setStyle(ButtonStyle.Primary);
 
@@ -71,12 +71,14 @@ module.exports = {
       });
 
       collector.on('collect', async i => {
-        const idx = i.customId;
-        await pc.setCondition(idx, true);
+        const idx = +i.customId;
+        console.log('idx', idx);
+        const reply = await pc.setCondition(idx, true);
         buttons[idx].setDisabled();
         row.setComponents(buttons);
         await interaction.editReply({ components: [row] });
         await i.reply(`${pc.name} marks ${playbookConditions[idx]}!`);
+        console.log(reply);
       });
 
       return;
