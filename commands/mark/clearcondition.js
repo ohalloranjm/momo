@@ -48,8 +48,8 @@ module.exports = {
 
       playbookConditions.forEach((condition, i) => {
         const button = new ButtonBuilder()
-          .setCustomId(i)
-          .setLabel(condition.capitalize())
+          .setCustomId(String(i))
+          .setLabel(condition)
           .setStyle(ButtonStyle.Success);
 
         if (!markedConditions.includes(condition)) button.setDisabled(true);
@@ -57,8 +57,7 @@ module.exports = {
         buttons.push(button);
       });
 
-      const row = new ActionRowBuilder();
-      row.addComponents(buttons);
+      const row = new ActionRowBuilder().addComponents(buttons);
 
       const sendButtons = await interaction.followUp({
         content: 'Click a condition to clear it.',
@@ -84,7 +83,9 @@ module.exports = {
       return;
     }
 
-    const targetConditions = commandString.betterSplit(', ', ',', ' ');
+    const targetConditions = commandString
+      .betterSplit(', ', ',', ' ')
+      .map(str => str[0].toUpperCase() + str.slice(1));
 
     let msgArr = [];
     let savePC = false;
