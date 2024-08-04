@@ -4,14 +4,6 @@ module.exports = {
   key: 'conditionsMarked',
 
   value() {
-    const conditions = [
-      this.conditionA,
-      this.conditionB,
-      this.conditionC,
-      this.conditionD,
-      this.conditionE,
-    ];
-
-    return conditions.reduce((sum, condition) => +condition + sum, 0);
+    return this.conditions.split('').reduce((sum, c) => +c + sum, 0);
   },
 };

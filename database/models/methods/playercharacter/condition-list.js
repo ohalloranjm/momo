@@ -10,18 +10,12 @@ module.exports = {
     const conditionNames =
       this.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
 
-    const conditionMarks = [
-      this.conditionA,
-      this.conditionB,
-      this.conditionC,
-      this.conditionD,
-      this.conditionE,
-    ];
-
-    const list = conditionNames.filter((_c, i) => conditionMarks[i]);
+    const list = conditionNames.filter(
+      (_c, i) => +this.conditions.split('')[i]
+    );
 
     if (!userView) return list;
-    if (!list.length) return 'No Conditions';
-    return list.map(condition => condition.capitalize()).join(', ');
+    if (!list.length) return 'None';
+    return list.join(', ');
   },
 };
