@@ -102,7 +102,8 @@ class Move {
     if (activePC) {
       // total number of conditions marked
       if (stat === 'conditions') {
-        statValue = activePC.conditionsMarked().statName = 'Conditions Marked';
+        statValue = activePC.conditionsMarked();
+        statName = 'Conditions Marked';
 
         // highest rated balance principle
       } else if (stat === 'balance') {
@@ -126,7 +127,7 @@ class Move {
         .conditionList()
         .find(c => Object.keys(this.conditionModifiers).includes(c));
       if (conditionName)
-        roll.addModifier(this.conditionModifiers[condition], conditionName);
+        roll.addModifier(this.conditionModifiers[conditionName], conditionName);
     }
 
     roll.addModifier(interaction.options.getInteger('extra-modifier'));

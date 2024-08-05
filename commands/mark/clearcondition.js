@@ -83,30 +83,19 @@ module.exports = {
       return;
     }
 
-    const targetConditions = commandString
-      .betterSplit(', ', ',', ' ')
-      .map(str => str[0].toUpperCase() + str.slice(1));
+    const targetConditions = commandString.betterSplit(', ', ',', ' ');
 
-    let msgArr = [];
+    const msgArr = [];
     let savePC = false;
 
     for (const condition of targetConditions) {
-      if (playbookConditions.includes(condition)) {
-        const idx = playbookConditions.indexOf(condition);
-        if (!markedConditions.includes(condition)) {
-          msgArr.push(
-            `* ${pc.name} does not have ${condition} marked. Choose a different condition to clear.`
-          );
-        } else {
-          await pc.setCondition(idx, false, { autosave: false });
-          savePC = true;
-          msgArr.push(`* ${pc.name} clears ${condition}!`);
-        }
-      } else {
-        msgArr.push(
-          `* ${condition} is not a valid condition for your playbook.`
-        );
-      }
+      const { success, message } = await pc.setCondition(condition, false, {
+        autosave: false,
+      });
+
+      if (success) savePC = true;
+
+      msgArr.push(`* ${message}`);
     }
 
     if (savePC) await pc.save();

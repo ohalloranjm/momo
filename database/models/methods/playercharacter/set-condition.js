@@ -1,17 +1,30 @@
-const { conditions } = require('../../../../constants');
-
 module.exports = {
   key: 'setCondition',
 
-  async value(conditionIdx, val, options = {}) {
+  async value(conditionKey, val, options = {}) {
+    const { condition, valid, index } = this._validateCondition(conditionKey);
+
+    if (!valid)
+      return {
+        success: false,
+        message: `${condition} is not a valid condition for the ${this.playbook}.`,
+      };
+
     const conditionsArr = this.conditions.split('');
 
-    if (+conditionsArr[conditionIdx] === +val) return { status: 'no-change' };
+    if (+conditionsArr[index] === +val)
+      return {
+        success: false,
+        message: `${this.name} is already ${condition}.`,
+      };
 
-    conditionsArr[conditionIdx] = +val;
+    conditionsArr[index] = +val;
     this.conditions = conditionsArr.join('');
     if (options.autosave !== false) await this.save();
 
-    return { status: 'success' };
+    return {
+      success: true,
+      message: `${this.name} ${val ? 'marks' : 'clears'} ${condition}!`,
+    };
   },
 };

@@ -72,44 +72,29 @@ module.exports = {
 
       collector.on('collect', async i => {
         const idx = +i.customId;
-        console.log('idx', idx);
         const reply = await pc.setCondition(idx, true);
         buttons[idx].setDisabled();
         row.setComponents(buttons);
         await interaction.editReply({ components: [row] });
         await i.reply(`${pc.name} marks ${playbookConditions[idx]}!`);
-        console.log(reply);
       });
 
       return;
     }
 
-    const targetConditions = commandString
-      .betterSplit(', ', ',', ' ')
-      .map(str => str[0].toUpperCase() + str.slice(1));
+    const targetConditions = commandString.betterSplit(', ', ',', ' ');
 
-    let msgArr = [];
+    const msgArr = [];
     let savePC = false;
 
-    console.log(targetConditions);
-
     for (const condition of targetConditions) {
-      if (playbookConditions.includes(condition)) {
-        const idx = playbookConditions.indexOf(condition);
-        if (alreadyMarked.includes(condition)) {
-          msgArr.push(
-            `* ${pc.name} is already ${condition}. Choose a different condition to mark.`
-          );
-        } else {
-          await pc.setCondition(idx, true, { autosave: false });
-          savePC = true;
-          msgArr.push(`* ${pc.name} marks ${condition}!`);
-        }
-      } else {
-        msgArr.push(
-          `* ${condition.capitalize()} is not a valid condition for your playbook.`
-        );
-      }
+      const { success, message } = await pc.setCondition(condition, true, {
+        autosave: false,
+      });
+
+      if (success) savePC = true;
+
+      msgArr.push(`* ${message}`);
     }
 
     if (savePC) await pc.save();
