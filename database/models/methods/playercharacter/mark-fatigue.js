@@ -2,7 +2,7 @@ module.exports = {
   key: 'markFatigue',
 
   async value(n) {
-    n = isNaN(n) || n < 1 ? 1 : parseInt(n);
+    n = isNaN(n) || parseInt(n) < 1 ? 1 : parseInt(n);
 
     const target = this.fatigue + n;
 
