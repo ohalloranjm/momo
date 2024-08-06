@@ -12,23 +12,15 @@ module.exports = {
         .setDescription('Mark 2 or more fatigue at once')
         .setMinValue(1)
     ),
+
   async execute(interaction) {
     await interaction.deferReply();
-    const { id } = interaction.user;
-    const pc = await PlayerCharacter.findOne({
-      attributes: ['id', 'name', 'fatigue', 'conditions'],
-      where: {
-        userId: id,
-        active: true,
-      },
-    });
 
-    if (!pc) {
-      await interaction.followUp(
-        'Cannot find a player character associated with this account. Use ``/newpc`` to create one.'
-      );
-      return;
-    }
+    const pc = await PlayerCharacter.grab(interaction, [
+      'fatigue',
+      'conditions',
+    ]);
+    if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     const mark = interaction.options.getInteger('amount') || 1;
 

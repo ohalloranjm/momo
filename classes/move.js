@@ -76,46 +76,36 @@ class Move {
   }
 
   async respond(interaction) {
-    // determine query row
-    const { id } = interaction.user;
-
     // determine query column
-    const attributes = ['playbook', 'conditions'];
+    const attributes = ['conditions'];
     const stat = interaction.options.getString('alt-stat') || this.stat;
-
     if (STATS.includes(stat) || stat === 'balance') {
       attributes.push(stat);
     }
 
     // query database for active player
-    const activePC = await PlayerCharacter.findOne({
-      attributes: attributes,
-      where: {
-        userId: id,
-        active: true,
-      },
-    });
+    const pc = await PlayerCharacter.grab(interaction, attributes);
 
     // process query for stat modifier, format name
     let statValue;
     let statName;
-    if (activePC) {
+    if (pc) {
       // total number of conditions marked
       if (stat === 'conditions') {
-        statValue = activePC.conditionsMarked();
+        statValue = pc.conditionsMarked();
         statName = 'Conditions Marked';
 
         // highest rated balance principle
       } else if (stat === 'balance') {
-        statValue = Math.abs(activePC.balance);
-        const { playbook: playbookKey } = activePC;
+        statValue = Math.abs(pc.balance);
+        const { playbook: playbookKey } = pc;
         const playbook = playbooks[playbookKey];
         const { principles } = playbook;
-        statName = principles[+(activePC.balance > 0)];
+        statName = principles[+(pc.balance > 0)];
 
         // one of the four normal stats
       } else {
-        statValue = activePC[stat];
+        statValue = pc[stat];
         statName = stat.capitalize();
       }
     }
@@ -123,7 +113,7 @@ class Move {
     const roll = new Roll().addModifier(statValue, statName);
 
     if (this.conditionModifiers) {
-      const conditionName = activePC
+      const conditionName = pc
         .conditionList()
         .find(c => Object.keys(this.conditionModifiers).includes(c));
       if (conditionName)

@@ -18,21 +18,8 @@ module.exports = {
       ephemeral: !interaction.options.getBoolean('public'),
     });
 
-    const { id } = interaction.user;
-
-    const pc = await PlayerCharacter.findOne({
-      where: {
-        userId: id,
-        active: true,
-      },
-    });
-
-    if (!pc) {
-      interaction.followUp(
-        'There are no player characters associated with this account. Use ``/newpc`` to create one.'
-      );
-      return;
-    }
+    const pc = await PlayerCharacter.grab(interaction, { allInfo: true });
+    if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     const { principles } = pc.getPlaybook();
 

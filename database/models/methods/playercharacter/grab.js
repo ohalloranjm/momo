@@ -4,7 +4,7 @@ const { STATS, STATUSES, TRAININGS } = require('../../../../constants');
 const { Op } = require('sequelize');
 
 module.exports = {
-  key: 'fetch',
+  key: 'grab',
 
   static: true,
 
@@ -33,6 +33,7 @@ module.exports = {
     if (roster) {
       query = this.findAll.bind(this);
       where.active = { [Op.or]: [true, false] };
+      attributes.push('active');
     }
 
     // { allInfo: true } option

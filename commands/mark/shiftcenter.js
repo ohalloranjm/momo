@@ -18,11 +18,8 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const pc = await PlayerCharacter.fetch(interaction, { info: 'balance' });
-    if (!pc)
-      return await interaction.followUp(
-        'You have no player characters. ``/newpc`` to create one.'
-      );
+    const pc = await PlayerCharacter.grab(interaction, 'balance');
+    if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     const target = interaction.options.getString('principle');
     const { principles } = pc.getPlaybook();

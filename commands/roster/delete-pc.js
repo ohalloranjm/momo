@@ -14,7 +14,7 @@ module.exports = {
   async execute(interaction) {
     const name = interaction.options.getString('name');
 
-    const roster = await PlayerCharacter.fetch(interaction, { roster: true });
+    const roster = await PlayerCharacter.grab(interaction, { roster: true });
 
     const { length } = roster;
 

@@ -20,9 +20,7 @@ module.exports = {
       interaction.options.getInteger('modifier')
     );
 
-    const pc = await PlayerCharacter.fetch(interaction, {
-      info: ['conditions', 'playbook'],
-    });
+    const pc = await PlayerCharacter.grab(interaction, 'conditions');
 
     if (pc && pc.conditionList().includes('Remorseful')) {
       roll.addModifier(-2, 'Remorseful');
