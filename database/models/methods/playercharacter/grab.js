@@ -10,7 +10,7 @@ module.exports = {
 
   static: true,
 
-  async value(user, options) {
+  async value(interaction, options) {
     let query = this.findOne.bind(this);
 
     const attributes = ['id', 'name'];
