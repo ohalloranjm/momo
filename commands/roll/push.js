@@ -2,7 +2,7 @@ const { Move } = require('../../classes');
 
 const push = new Move('push')
   .setTitle('Push Your Luck')
-  .setStat('passion')
+  .setStat('Passion')
   .addConditionModifier('Guilty')
   .addConditionModifier('Frustrated')
   .appendToResult(

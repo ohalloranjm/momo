@@ -30,12 +30,12 @@ module.exports = {
         .setDescription('Choose a bending or non-bending martial training.')
         .setRequired(true)
         .addChoices(
-          { name: 'Waterbending', value: 'waterbending' },
-          { name: 'Earthbending', value: 'earthbending' },
-          { name: 'Firebending', value: 'firebending' },
-          { name: 'Airbending', value: 'airbending' },
-          { name: 'Weapons', value: 'weapons' },
-          { name: 'Technology', value: 'technology' }
+          { name: 'Waterbending', value: 'Waterbending' },
+          { name: 'Earthbending', value: 'Earthbending' },
+          { name: 'Firebending', value: 'Firebending' },
+          { name: 'Airbending', value: 'Airbending' },
+          { name: 'Weapons', value: 'Weapons' },
+          { name: 'Technology', value: 'Technology' }
         )
     )
     .addStringOption(option =>
@@ -44,10 +44,10 @@ module.exports = {
         .setDescription('Choose one of your stats to increase by +1 (max. +2).')
         .setRequired(true)
         .addChoices(
-          { name: 'creativity', value: 'creativity' },
-          { name: 'focus', value: 'focus' },
-          { name: 'harmony', value: 'harmony' },
-          { name: 'passion', value: 'passion' }
+          { name: 'Creativity', value: 'Creativity' },
+          { name: 'Focus', value: 'Focus' },
+          { name: 'Harmony', value: 'Harmony' },
+          { name: 'Passion', value: 'Passion' }
         )
     ),
   async execute(interaction) {

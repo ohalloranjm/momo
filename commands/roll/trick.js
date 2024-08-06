@@ -2,7 +2,7 @@ const { Move } = require('../../classes');
 
 const trick = new Move('trick')
   .setTitle('Trick an NPC')
-  .setStat('creativity')
+  .setStat('Creativity')
   .addConditionModifier('Insecure')
   .addConditionModifier('Jaded', 1)
   .appendToResult(

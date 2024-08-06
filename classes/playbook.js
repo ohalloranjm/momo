@@ -1,22 +1,21 @@
 class Playbook {
-    constructor(key) {
-        this.key = key;
-        this.name = `The ${key[0].toUpperCase()}${key.slice(1)}`
-    }
+  constructor(key) {
+    this.key = key;
+    this.name = `The ${key}`;
+  }
 
-    setDefaultStats(creativity, focus, harmony, passion) {
-        this.creativity = creativity || 0;
-        this.focus = focus || 0;
-        this.harmony = harmony || 0;
-        this.passion = passion || 0;
-        return this;
-    }
+  setDefaultStats(Creativity, Focus, Harmony, Passion) {
+    this.Creativity = Creativity || 0;
+    this.Focus = Focus || 0;
+    this.Harmony = Harmony || 0;
+    this.Passion = Passion || 0;
+    return this;
+  }
 
-    setBalancePrinciples(leftPrinciple, rightPrinciple) {
-        this.principles = [leftPrinciple, rightPrinciple]
-        return this;
-    }
-
+  setBalancePrinciples(leftPrinciple, rightPrinciple) {
+    this.principles = [leftPrinciple, rightPrinciple];
+    return this;
+  }
 }
 
 module.exports = Playbook;

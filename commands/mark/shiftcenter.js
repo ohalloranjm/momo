@@ -31,13 +31,13 @@ module.exports = {
           new ButtonBuilder()
             .setCustomId('left')
             .setStyle(ButtonStyle.Primary)
-            .setLabel(principles[0].capitalize())
+            .setLabel(principles[0])
         )
         .addComponents(
           new ButtonBuilder()
             .setCustomId('right')
             .setStyle(ButtonStyle.Primary)
-            .setLabel(principles[1].capitalize())
+            .setLabel(principles[1])
         );
 
       const choosePrinciple = await interaction.followUp({

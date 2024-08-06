@@ -40,11 +40,11 @@ module.exports = {
       const leftButton = new ButtonBuilder()
         .setCustomId('left')
         .setStyle(ButtonStyle.Primary)
-        .setLabel(`${principles[0].capitalize()} (${(-pc.balance).sign()})`);
+        .setLabel(`${principles[0]} (${(-pc.balance).sign()})`);
       const rightButton = new ButtonBuilder()
         .setCustomId('right')
         .setStyle(ButtonStyle.Primary)
-        .setLabel(`${principles[1].capitalize()} (${pc.balance.sign()})`);
+        .setLabel(`${principles[1]} (${pc.balance.sign()})`);
       row.addComponents(leftButton, rightButton);
       const click = await interaction.followUp({
         content: shift.message,

@@ -2,7 +2,7 @@ const { Move } = require('../../classes');
 
 const guide = new Move('guide')
   .setTitle('Guide and Comfort')
-  .setStat('harmony')
+  .setStat('Harmony')
   .addConditionModifier('Angry')
   .addConditionModifier('Shaken')
   .appendToResult('hit', 'They choose one:')

@@ -72,9 +72,7 @@ module.exports = {
         buttons[idx].setDisabled();
         row.setComponents(buttons);
         await interaction.editReply({ components: [row] });
-        await i.reply(
-          `${pc.name} clears ${playbookConditions[idx].capitalize()}`
-        );
+        await i.reply(`${pc.name} clears ${playbookConditions[idx]}`);
       });
 
       return;

@@ -2,7 +2,7 @@ const { Move } = require('../../classes');
 
 const intimidate = new Move('intimidate')
   .setTitle('Intimidate an NPC')
-  .setStat('passion')
+  .setStat('Passion')
   .addConditionModifier('Afraid')
   .addConditionModifier('Frustrated', 1)
   .appendToResult('hit', 'They choose one.')

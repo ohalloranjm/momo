@@ -11,7 +11,7 @@ module.exports = {
     DEFAULT: ['Afraid', 'Angry', 'Guilty', 'Insecure', 'Troubled'],
     ELDER: ['Frustrated', 'Jaded', 'Remorseful', 'Shaken', 'Worried'],
   },
-  STATS: ['creativity', 'focus', 'passion', 'harmony'],
+  STATS: ['Creativity', 'Focus', 'Passion', 'Harmony'],
   STATUSES: [
     'empowered',
     'favored',

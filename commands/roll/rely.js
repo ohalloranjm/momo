@@ -2,7 +2,7 @@ const { Move } = require('../../classes');
 
 const rely = new Move('rely')
   .setTitle('Rely on Your Skills & Training')
-  .setStat('focus')
+  .setStat('Focus')
   .addConditionModifier('Troubled')
   .addConditionModifier('Worried', 1)
   .appendToResult('full', 'You do it.')

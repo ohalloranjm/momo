@@ -26,22 +26,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      creativity: {
+      Creativity: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },
-      focus: {
+      Focus: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },
-      harmony: {
+      Harmony: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },
-      passion: {
+      Passion: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,

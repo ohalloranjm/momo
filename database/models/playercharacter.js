@@ -79,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
           ],
         },
       },
-      creativity: {
+      Creativity: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
           max: 3,
         },
       },
-      focus: {
+      Focus: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -97,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
           max: 3,
         },
       },
-      harmony: {
+      Harmony: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -106,7 +106,7 @@ module.exports = (sequelize, DataTypes) => {
           max: 3,
         },
       },
-      passion: {
+      Passion: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,

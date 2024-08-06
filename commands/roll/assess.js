@@ -2,7 +2,7 @@ const { Move, Roll } = require('../../classes');
 
 const assess = new Move('assess')
   .setTitle('Assess a Situation')
-  .setStat('creativity')
+  .setStat('Creativity')
   .addConditionModifier('Angry')
   .addConditionModifier('Shaken', 1)
   .appendToResult(

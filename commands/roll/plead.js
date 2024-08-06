@@ -2,7 +2,7 @@ const { Move } = require('../../classes/');
 
 const plead = new Move('plead')
   .setTitle('Plead with an NPC')
-  .setStat('harmony')
+  .setStat('Harmony')
   .addConditionModifier('Troubled')
   .addConditionModifier('Jaded')
   .appendToResult(
