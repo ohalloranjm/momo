@@ -7,6 +7,6 @@ module.exports = {
 
     if (!userView) return list;
     if (!list.length) return 'Error: No training found';
-    return list.map(training => training.capitalize()).join(', ');
+    return list.map(training => training).join(', ');
   },
 };

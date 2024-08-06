@@ -17,9 +17,7 @@ module.exports = {
       roster
         .map(
           pc =>
-            `* ${pc.name}: The ${pc.playbook.capitalize()}${
-              pc.active ? ' [active PC]' : ''
-            }`
+            `* ${pc.name}: The ${pc.playbook}${pc.active ? ' [active PC]' : ''}`
         )
         .join('\n')
     );

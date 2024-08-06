@@ -47,7 +47,7 @@ module.exports = {
     const shift = direction * steps;
     const targetBalance = this.balance + shift;
 
-    result.shifted = principles[(direction + 1) / 2].capitalize();
+    result.shifted = principles[(direction + 1) / 2];
 
     if (targetBalance < -3) {
       this.balance = -3;
@@ -56,7 +56,7 @@ module.exports = {
     } else if (targetBalance > 3) {
       this.balance = 3;
       result.status = 'lose-balance';
-      result.message = `You shift your balance off the edge of your track, causing you to **lose your balance** toward ${principles[1].capitalize()}—unless you are in the middle of a combat exchange (wait until the end of the exchange to lose your balance) or in between sessions (don’t lose your balance).`;
+      result.message = `You shift your balance off the edge of your track, causing you to **lose your balance** toward ${principles[1]}—unless you are in the middle of a combat exchange (wait until the end of the exchange to lose your balance) or in between sessions (don’t lose your balance).`;
     } else {
       this.balance = targetBalance;
       result.status = 'shifted-balance';

@@ -20,7 +20,6 @@ class Move {
   // default stat to use when rolling, e.g. 'harmony'
   setStat(stat) {
     this.stat = stat;
-    this.Stat = stat.capitalize();
     return this;
   }
 
@@ -47,7 +46,7 @@ class Move {
         option
           .setName('extra-modifier')
           .setDescription(
-            `Additional modifiers on top of your ${move.Stat}, e.g. from hold or ongoing.`
+            `Additional modifiers on top of your ${move.stat}, e.g. from hold or ongoing.`
           )
       )
       .addStringOption(option => {
@@ -56,13 +55,11 @@ class Move {
           { name: 'Live up to Your Balance Principle', value: 'balance' },
           { name: 'Conditions Marked', value: 'conditions' },
         ];
-        otherStats.forEach(stat =>
-          choices.push({ name: stat.capitalize(), value: stat })
-        );
+        otherStats.forEach(stat => choices.push({ name: stat, value: stat }));
         return option
           .setName('alt-stat')
           .setDescription(
-            `Use a different stat, balance principle, or conditions marked for this roll, instead of ${move.Stat}.`
+            `Use a different stat, balance principle, or conditions marked for this roll, instead of ${move.stat}.`
           )
           .addChoices(choices);
       })
@@ -106,7 +103,7 @@ class Move {
         // one of the four normal stats
       } else {
         statValue = pc[stat];
-        statName = stat.capitalize();
+        statName = stat;
       }
     }
 

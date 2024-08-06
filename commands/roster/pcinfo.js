@@ -24,7 +24,7 @@ module.exports = {
     const { principles } = pc.getPlaybook();
 
     interaction.followUp(
-      `## ${pc.name}, the ${pc.playbook.capitalize()}
+      `## ${pc.name}, the ${pc.playbook}
 ${-pc.balance.sign()} ${principles[0]} / ${pc.balance.sign()} ${principles[1]}
 Center: ${-pc.center.sign()} / ${pc.center.sign()}
 ${pc.Creativity.sign()} Creativity, ${pc.Focus.sign()} Focus, ${pc.Harmony.sign()} Harmony, ${pc.Passion.sign()} Passion
