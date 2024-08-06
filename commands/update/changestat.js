@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { STATS } = require('../../constants');
 const { PlayerCharacter } = require('../../database/models');
+const playbooks = require('../../playbooks');
 require('../../functions');
 
 module.exports = {
@@ -33,12 +34,9 @@ module.exports = {
 
     const stat = interaction.options.getString('stat');
     const newValue = interaction.options.getInteger('new-value');
-    const pc = await PlayerCharacter.fetch(interaction, { info: stat });
+    const pc = await PlayerCharacter.grab(interaction, stat);
 
-    if (!pc)
-      return await interaction.followUp(
-        'There are no player characters associated with your account. Use ``/newpc`` to create one.'
-      );
+    if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     if (pc[stat] === newValue)
       return await interaction.followUp(

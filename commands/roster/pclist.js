@@ -3,20 +3,25 @@ const { PlayerCharacter } = require('../../database/models');
 require('../../functions');
 
 module.exports = {
+  data: new SlashCommandBuilder()
+    .setName('pclist')
+    .setDescription('Lists your player characters.'),
 
-    data: new SlashCommandBuilder()
-        .setName('pclist')
-        .setDescription('Lists your player characters.'),
+  async execute(interaction) {
+    await interaction.deferReply({ ephemeral: true });
 
-    async execute(interaction) {
-        const { id } = interaction.user;
-        const roster = await PlayerCharacter.findAll({
-            attributes: ['name', 'playbook', 'active'],
-            where: { userId: id }
-        })
+    const roster = await PlayerCharacter.grab(interaction, { roster: true });
+    if (!roster.length) return await interaction.followUp(PlayerCharacter.nopc);
 
-        if(!roster.length) return await interaction.reply('You have no PCs')
-
-        await interaction.reply(roster.map(pc => `* ${pc.name}: The ${pc.playbook.capitalize()}${pc.active ? ' [active PC]' : ''}`).join('\n'))
-    }
-}
+    await interaction.followUp(
+      roster
+        .map(
+          pc =>
+            `* ${pc.name}: The ${pc.playbook.capitalize()}${
+              pc.active ? ' [active PC]' : ''
+            }`
+        )
+        .join('\n')
+    );
+  },
+};

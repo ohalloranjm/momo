@@ -25,11 +25,8 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const pc = await PlayerCharacter.fetch(interaction, {
-      info: ['conditions', 'playbook'],
-    });
-
-    if (!pc) return await interaction.nopc();
+    const pc = await PlayerCharacter.grab(interaction, 'conditions');
+    if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     const playbookConditions =
       pc.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;

@@ -15,9 +15,8 @@ module.exports = {
     ),
   async execute(interaction) {
     await interaction.deferReply();
-    const pc = await PlayerCharacter.fetch(interaction, {
-      info: ['conditions', 'playbook'],
-    });
+
+    const pc = await PlayerCharacter.grab(interaction, 'conditions');
 
     const roll = new Roll().addModifier(
       interaction.options.getInteger('modifier')

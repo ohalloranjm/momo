@@ -21,9 +21,9 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const pc = await PlayerCharacter.fetch(interaction, {
-      info: 'balance',
-    });
+    const pc = await PlayerCharacter.grab(interaction, 'balance');
+    if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
+
     const { principles } = pc.getPlaybook();
 
     let target = interaction.options.getString('principle');
