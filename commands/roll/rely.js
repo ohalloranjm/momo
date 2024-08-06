@@ -3,8 +3,8 @@ const { Move } = require('../../classes');
 const rely = new Move('rely')
   .setTitle('Rely on Your Skills & Training')
   .setStat('focus')
-  .addConditionModifier('troubled')
-  .addConditionModifier('worried', 1)
+  .addConditionModifier('Troubled')
+  .addConditionModifier('Worried', 1)
   .appendToResult('full', 'You do it.')
   .appendToResult(
     'part',

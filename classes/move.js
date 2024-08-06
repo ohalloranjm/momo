@@ -24,9 +24,9 @@ class Move {
     return this;
   }
 
-  addConditionModifier(condition, modifier = -2) {
+  addConditionModifier(conditionName, modifier = -2) {
     if (!this.conditionModifiers) this.conditionModifiers = {};
-    this.conditionModifiers[condition] = modifier;
+    this.conditionModifiers[conditionName] = modifier;
     return this;
   }
 
@@ -80,14 +80,7 @@ class Move {
     const { id } = interaction.user;
 
     // determine query column
-    const attributes = [
-      'playbook',
-      'conditionA',
-      'conditionB',
-      'conditionC',
-      'conditionD',
-      'conditionE',
-    ];
+    const attributes = ['playbook', 'conditions'];
     const stat = interaction.options.getString('alt-stat') || this.stat;
 
     if (STATS.includes(stat) || stat === 'balance') {
@@ -109,15 +102,7 @@ class Move {
     if (activePC) {
       // total number of conditions marked
       if (stat === 'conditions') {
-        const { conditionA, conditionB, conditionC, conditionD, conditionE } =
-          activePC;
-        statValue = [
-          conditionA,
-          conditionB,
-          conditionC,
-          conditionD,
-          conditionE,
-        ].reduce((sum, marked) => +marked + sum, 0);
+        statValue = activePC.conditionsMarked();
         statName = 'Conditions Marked';
 
         // highest rated balance principle
@@ -138,14 +123,11 @@ class Move {
     const roll = new Roll().addModifier(statValue, statName);
 
     if (this.conditionModifiers) {
-      const condition = activePC
+      const conditionName = activePC
         .conditionList()
         .find(c => Object.keys(this.conditionModifiers).includes(c));
-      if (condition)
-        roll.addModifier(
-          this.conditionModifiers[condition],
-          condition.capitalize()
-        );
+      if (conditionName)
+        roll.addModifier(this.conditionModifiers[conditionName], conditionName);
     }
 
     roll.addModifier(interaction.options.getInteger('extra-modifier'));

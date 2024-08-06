@@ -1,8 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
-
-require('../../functions');
-const playbooks = require('../../playbooks');
+const path = require('node:path');
+const fs = require('node:fs');
 const { Op } = require('sequelize');
 const { conditions, STATS, STATUSES, TRAININGS } = require('../../constants');
 
@@ -56,7 +55,6 @@ module.exports = (sequelize, DataTypes) => {
           'advancePassion',
         ],
         balance: ['playbook', 'balance', 'center'],
-        conditions: conditions.QUERY,
         stats: STATS,
         statuses: STATUSES,
         training: TRAININGS,
@@ -79,170 +77,22 @@ module.exports = (sequelize, DataTypes) => {
 
       return await query(queryOptions);
     }
+  }
 
-    // returns an array of marked conditions
-    // toggle user view to output a string instead
-    conditionList(userView) {
-      const conditionNames =
-        this.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
-
-      const conditionMarks = [
-        this.conditionA,
-        this.conditionB,
-        this.conditionC,
-        this.conditionD,
-        this.conditionE,
-      ];
-
-      const list = conditionNames.filter((_c, i) => conditionMarks[i]);
-
-      if (!userView) return list;
-      if (!list.length) return 'No Conditions';
-      return list.map(condition => condition.capitalize()).join(', ');
-    }
-
-    // return the total number of conditions marked (integer from 0 to 5)
-    conditionsMarked() {
-      const conditions = [
-        this.conditionA,
-        this.conditionB,
-        this.conditionC,
-        this.conditionD,
-        this.conditionE,
-      ];
-
-      return conditions.reduce((sum, condition) => +condition + sum, 0);
-    }
-
-    // shiftBalance
-    async shiftBalance(principle = 'away', steps = 1) {
-      steps = isNaN(steps) ? 1 : +steps;
-
-      const { principles } = this.getPlaybook();
-      const result = { principles, priorBalance: this.balance };
-
-      if (this.balance === this.center) {
-        if (principle === 'away') {
-          result.newBalance = this.balance;
-          result.status = 'need-principle';
-          result.message =
-            'Your balance is currently at your center. Choose a principle to shift toward.';
-          return result;
-        }
-
-        if (principle === 'center') {
-          result.newBalance = this.balance;
-          result.status = 'already-center';
-          result.message = 'Your balance is already at your center.';
-          return result;
-        }
-      }
-
-      const principleLookup = {
-        [principles[0].toLowerCase()]: -1,
-        [principles[1].toLowerCase()]: 1,
-        left: -1,
-        right: 1,
-        away: this.balance > this.center ? 1 : -1,
-        center: this.balance > this.center ? -1 : 1,
-        '-1': -1,
-        1: 1,
-      };
-
-      if (!(principle.toLowerCase() in principleLookup)) {
-        result.newBalance = this.balance;
-        result.status = 'need-principle';
-        result.message = `${principle} is not a valid principle for your playbook. Choose a principle to shift toward.`;
-        return result;
-      }
-
-      const direction = principleLookup[principle];
-
-      const shift = direction * steps;
-      const targetBalance = this.balance + shift;
-
-      result.shifted = principles[(direction + 1) / 2].capitalize();
-
-      if (targetBalance < -3) {
-        this.balance = -3;
-        result.status = 'lose-balance';
-        result.message = `${this.name} shifts their balance off the edge of their track. Confirm **lose your balance**? (If you are in a combat exchange, wait for the exchange to end. If you are in between sessions, don’t lose your balance.)`;
-      } else if (targetBalance > 3) {
-        this.balance = 3;
-        result.status = 'lose-balance';
-        result.message = `You shift your balance off the edge of your track, causing you to **lose your balance** toward ${principles[1].capitalize()}—unless you are in the middle of a combat exchange (wait until the end of the exchange to lose your balance) or in between sessions (don’t lose your balance).`;
-      } else {
-        this.balance = targetBalance;
-        result.status = 'shifted-balance';
-        result.message = `${this.name} shifts their balance toward ${result.shifted}.`;
-      }
-
-      await this.save();
-
-      result.newBalance = this.balance;
-
-      return result;
-    }
-
-    // shiftCenter
-    async shiftCenter(d) {
-      if (d !== 1 && d !== -1) throw RangeError('d must be 1 or -1');
-      const result = { oldCenter: this.center };
-      const { principles } = this.getPlaybook();
-
-      if (Math.abs(this.center + d) > 3) {
-        result.message =
-          'Momo cannot shift your center off the edge of your balance track.';
-        result.newCenter = this.center;
-        return result;
-      } else {
-        this.center += d;
-        await this.save();
-        result.newCenter = this.center;
-        result.message = `${this.name} shifts their center toward ${
-          d < 0 ? principles[0] : principles[1]
-        }. New center: ${(-this.center).sign()} ${
-          principles[0]
-        } / ${this.center.sign()} ${principles[1]}.`;
-        return result;
-      }
-    }
-
-    // resetBalance
-    async resetBalance() {
-      const result = { oldBalance: this.balance };
-
-      if (this.balance === this.center) {
-        result.newBalance = this.balance;
-        result.message = `${this.name}’s balance is already at their center.`;
-        return result;
-      }
-
-      this.balance = this.center;
-      result.newBalance = this.center;
-      result.message = `${this.name} takes some time to recenter themself, returning their balance to center.`;
-      await this.save();
-      return result;
-    }
-
-    trainingList(userView) {
-      const trainings = [
-        'waterbending',
-        'earthbending',
-        'firebending',
-        'airbending',
-        'weapons',
-        'technology',
-      ];
-      const list = trainings.filter(training => this[training]);
-
-      if (!userView) return list;
-      if (!list.length) return 'Error: No training found';
-      return list.map(training => training.capitalize()).join(', ');
-    }
-
-    getPlaybook() {
-      return playbooks[this.playbook];
+  // apply custom methods
+  const methodsPath = path.join(__dirname, 'methods', 'playercharacter');
+  const methodFiles = fs
+    .readdirSync(methodsPath)
+    .filter(file => file.endsWith('.js'));
+  for (const file of methodFiles) {
+    const filePath = path.join(methodsPath, file);
+    const data = require(filePath);
+    if ('key' in data && 'value' in data) {
+      PlayerCharacter.prototype[data.key] = data.value;
+    } else {
+      console.error(
+        `[WARNING] The method at ${filePath} is missing a required "key" or "value" property.`
+      );
     }
   }
 
@@ -387,30 +237,17 @@ module.exports = (sequelize, DataTypes) => {
           max: 5,
         },
       },
-      conditionA: {
-        type: DataTypes.BOOLEAN,
+      conditions: {
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: false,
-      },
-      conditionB: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      conditionC: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      conditionD: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      conditionE: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
+        defaultValue: '00000',
+        validate: {
+          len: [5, 5],
+          binary(str) {
+            if (str.split('').some(char => !['0', '1'].includes(char)))
+              throw Error('String must be composed of only 1s and 0s.');
+          },
+        },
       },
       empowered: {
         type: DataTypes.BOOLEAN,
