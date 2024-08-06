@@ -14,8 +14,10 @@ module.exports = {
 
     const conditionsMarked = this.conditionsMarked();
 
-    if (spillover > conditionsMarked) {
-      response.message += ` ${this.name} loses their balance!`;
+    console.log(spillover);
+    console.log(conditionsMarked);
+    if (spillover > 5 - conditionsMarked) {
+      response.message += ` ${this.name} is taken out!`;
       this.conditions = '11111';
       await this.save();
     } else {

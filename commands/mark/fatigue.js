@@ -16,7 +16,7 @@ module.exports = {
     await interaction.deferReply();
     const { id } = interaction.user;
     const pc = await PlayerCharacter.findOne({
-      attributes: ['id', 'name', 'fatigue', 'A', 'conditions'],
+      attributes: ['id', 'name', 'fatigue', 'conditions'],
       where: {
         userId: id,
         active: true,
@@ -33,6 +33,6 @@ module.exports = {
     const mark = interaction.options.getInteger('amount') || 1;
 
     const response = await pc.markFatigue(mark);
-    await interaction.reply(response.message);
+    await interaction.followUp(response.message);
   },
 };
