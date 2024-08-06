@@ -5,6 +5,8 @@ const {
   TRAININGS,
 } = require('../../../../constants');
 
+const { Op } = require('sequelize');
+
 module.exports = {
   key: 'fetch',
 
@@ -65,7 +67,6 @@ module.exports = {
 
     if (typeof info === 'string') {
       attributePush(info);
-      console.log(attributes);
     } else if (Array.isArray(info)) {
       info.forEach(attributePush);
     }
