@@ -56,7 +56,7 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
-      waterbending: {
+      Waterbending: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
@@ -66,22 +66,22 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      firebending: {
+      Firebending: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      airbending: {
+      Airbending: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      weapons: {
+      Weapons: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      technology: {
+      Technology: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
@@ -102,42 +102,42 @@ module.exports = {
         allowNull: false,
         defaultValue: '00000',
       },
-      empowered: {
+      Empowered: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      favored: {
+      Favored: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      inspired: {
+      Inspired: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      prepared: {
+      Prepared: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      doomed: {
+      Doomed: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      impaired: {
+      Impaired: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      trapped: {
+      Trapped: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      stunned: {
+      Stunned: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,

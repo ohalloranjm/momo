@@ -133,32 +133,32 @@ module.exports = (sequelize, DataTypes) => {
           max: 3,
         },
       },
-      waterbending: {
+      Waterbending: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      earthbending: {
+      Earthbending: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      firebending: {
+      Firebending: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      airbending: {
+      Airbending: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      weapons: {
+      Weapons: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      technology: {
+      Technology: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
@@ -190,42 +190,42 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      empowered: {
+      Empowered: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      favored: {
+      Favored: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      inspired: {
+      Inspired: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      prepared: {
+      Prepared: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      doomed: {
+      Doomed: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      impaired: {
+      Impaired: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      trapped: {
+      Trapped: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
-      stunned: {
+      Stunned: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,

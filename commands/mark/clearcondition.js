@@ -29,7 +29,7 @@ module.exports = {
     if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     const playbookConditions =
-      pc.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
+      pc.playbook === 'Elder' ? conditions.ELDER : conditions.DEFAULT;
 
     const markedConditions = pc.conditionList();
 

@@ -18,10 +18,10 @@ module.exports = {
         .setDescription('Choose your playbook.')
         .setRequired(true)
         .addChoices(
-          { name: 'The Hammer', value: 'hammer' },
-          { name: 'The Elder', value: 'elder' },
-          { name: 'The Icon', value: 'icon' },
-          { name: 'The Bold', value: 'bold' }
+          { name: 'The Hammer', value: 'Hammer' },
+          { name: 'The Elder', value: 'Elder' },
+          { name: 'The Icon', value: 'Icon' },
+          { name: 'The Bold', value: 'Bold' }
         )
     )
     .addStringOption(option =>
