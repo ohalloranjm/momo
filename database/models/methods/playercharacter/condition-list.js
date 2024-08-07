@@ -8,7 +8,7 @@ module.exports = {
 
   value(userView) {
     const conditionNames =
-      this.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
+      this.playbook === 'Elder' ? conditions.ELDER : conditions.DEFAULT;
 
     const list = conditionNames.filter(
       (_c, i) => +this.conditions.split('')[i]
