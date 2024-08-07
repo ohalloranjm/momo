@@ -6,7 +6,7 @@ const {
   SlashCommandBuilder,
 } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
-const { conditions } = require('../../constants');
+const { conditions } = require('../../utils/constants');
 
 module.exports = {
   alias: 'xc',

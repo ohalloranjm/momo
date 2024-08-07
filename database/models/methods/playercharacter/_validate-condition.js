@@ -1,4 +1,4 @@
-const { conditions } = require('../../../../constants');
+const { conditions } = require('../../../../utils/constants');
 
 module.exports = {
   key: '_validateCondition',

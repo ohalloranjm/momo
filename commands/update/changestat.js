@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { STATS } = require('../../constants');
+const { STATS } = require('../../utils/constants');
 const { PlayerCharacter } = require('../../database/models');
 require('../../utils/custom-methods');
 

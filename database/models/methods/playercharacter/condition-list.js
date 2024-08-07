@@ -1,7 +1,7 @@
 // returns an array of marked conditions
 // toggle user view to output a string instead
 
-const { conditions } = require('../../../../constants');
+const { conditions } = require('../../../../utils/constants');
 
 module.exports = {
   key: 'conditionList',

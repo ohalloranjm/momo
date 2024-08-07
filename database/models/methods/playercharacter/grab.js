@@ -1,5 +1,5 @@
 const { BaseInteraction, User } = require('discord.js');
-const { STATS, STATUSES, TRAININGS } = require('../../../../constants');
+const { STATS, STATUSES, TRAININGS } = require('../../../../utils/constants');
 
 const { Op } = require('sequelize');
 

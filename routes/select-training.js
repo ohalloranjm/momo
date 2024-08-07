@@ -1,5 +1,5 @@
 const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
-const { TRAININGS } = require('../constants');
+const { TRAININGS } = require('../utils/constants');
 
 module.exports = {
   name: 'selectTraining',
