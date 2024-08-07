@@ -6,7 +6,7 @@ const {
   SlashCommandBuilder,
 } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
-const { conditions } = require('../../constants');
+const { conditions } = require('../../utils/constants');
 
 module.exports = {
   alias: 'xc',
@@ -76,7 +76,7 @@ module.exports = {
       return;
     }
 
-    require('../../functions');
+    require('../../utils/custom-methods');
     const targetConditions = commandString.betterSplit(', ', ',', ' ');
 
     const msgArr = [];

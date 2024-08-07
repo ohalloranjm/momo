@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
-require('../../functions');
+require('../../utils/custom-methods');
 
 module.exports = {
   data: new SlashCommandBuilder()

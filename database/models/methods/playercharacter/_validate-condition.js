@@ -1,4 +1,4 @@
-const { conditions } = require('../../../../constants');
+const { conditions } = require('../../../../utils/constants');
 
 module.exports = {
   key: '_validateCondition',
@@ -9,7 +9,7 @@ module.exports = {
     }
 
     const playbookConditions =
-      this.playbook === 'elder' ? conditions.ELDER : conditions.DEFAULT;
+      this.playbook === 'Elder' ? conditions.ELDER : conditions.DEFAULT;
 
     if (isNaN(input)) {
       const condition = input

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { playbooks } = require('../playbooks');
-const { STATS } = require('../constants');
+const { STATS } = require('../utils/constants');
 const { PlayerCharacter } = require('../database/models');
 const Roll = require('./roll');
 
@@ -16,7 +16,7 @@ class Move {
     return this;
   }
 
-  // default stat to use when rolling, e.g. 'harmony'
+  // default stat to use when rolling, e.g. 'Harmony'
   setStat(stat) {
     this.stat = stat;
     return this;

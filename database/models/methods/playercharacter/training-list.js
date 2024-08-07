@@ -1,4 +1,4 @@
-const { TRAININGS } = require('../../../../constants');
+const { TRAININGS } = require('../../../../utils/constants');
 
 module.exports = {
   key: 'trainingList',

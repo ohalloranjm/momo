@@ -1,6 +1,6 @@
-const { STATS } = require('../constants');
+const { STATS } = require('../utils/constants');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-require('../functions');
+require('../utils/custom-methods');
 
 module.exports = {
   name: 'selectStat',

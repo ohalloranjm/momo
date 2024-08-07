@@ -5,15 +5,7 @@ const fs = require('node:fs');
 const playbooks = require('../../playbooks');
 
 module.exports = (sequelize, DataTypes) => {
-  class PlayerCharacter extends Model {
-    static associate(models) {
-      PlayerCharacter.belongsToMany(models.Technique, {
-        through: models.PcTechnique,
-        foreignKey: 'pcId',
-        otherKey: 'techniqueId',
-      });
-    }
-  }
+  class PlayerCharacter extends Model {}
 
   // apply custom methods
   const methodsPath = path.join(__dirname, 'methods', 'playercharacter');
