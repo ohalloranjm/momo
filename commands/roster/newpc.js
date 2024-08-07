@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { PlayerCharacter } = require('../../database/models/');
-const Playbooks = require('../../playbooks');
+const { STATS } = require('../../constants');
+const { PlayerCharacter } = require('../../database/models');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,96 +11,58 @@ module.exports = {
         .setName('name')
         .setDescription("Your character's name.")
         .setRequired(true)
-    )
-    .addStringOption(option =>
-      option
-        .setName('playbook')
-        .setDescription('Choose your playbook.')
-        .setRequired(true)
-        .addChoices(
-          { name: 'The Hammer', value: 'Hammer' },
-          { name: 'The Elder', value: 'Elder' },
-          { name: 'The Icon', value: 'Icon' },
-          { name: 'The Bold', value: 'Bold' }
-        )
-    )
-    .addStringOption(option =>
-      option
-        .setName('training')
-        .setDescription('Choose a bending or non-bending martial training.')
-        .setRequired(true)
-        .addChoices(
-          { name: 'Waterbending', value: 'Waterbending' },
-          { name: 'Earthbending', value: 'Earthbending' },
-          { name: 'Firebending', value: 'Firebending' },
-          { name: 'Airbending', value: 'Airbending' },
-          { name: 'Weapons', value: 'Weapons' },
-          { name: 'Technology', value: 'Technology' }
-        )
-    )
-    .addStringOption(option =>
-      option
-        .setName('stat-increase')
-        .setDescription('Choose one of your stats to increase by +1 (max. +2).')
-        .setRequired(true)
-        .addChoices(
-          { name: 'Creativity', value: 'Creativity' },
-          { name: 'Focus', value: 'Focus' },
-          { name: 'Harmony', value: 'Harmony' },
-          { name: 'Passion', value: 'Passion' }
-        )
     ),
+
   async execute(interaction) {
-    await interaction.deferReply({
-      ephemeral: true,
-    });
-
-    const { id } = interaction.user;
-
+    await interaction.deferReply({ ephemeral: true });
     const otherPCs = await PlayerCharacter.grab(interaction, { roster: true });
 
-    if (otherPCs.length >= 5 && id !== process.env.ADMIN_ID) {
+    if (otherPCs.length >= 5) {
       return await interaction.followUp(
-        'You are allowed a maximum of five player characters per Discord account. Please delete an existing PC before creating a new one.'
+        'You’ve reached your maximum of five player characters. To create a new one, first use ``/delete-pc`` to delete an existing character.'
       );
     }
 
-    const playbook = Playbooks[interaction.options.getString('playbook')];
-    const { Creativity, Focus, Harmony, Passion } = playbook;
+    const name = interaction.options.getString('name');
+    await interaction.followUp(`## Building Player Character: ${name}…`);
+
+    const r = require('../../routes')(interaction);
+
+    const playbook = await r.selectPlaybook('\n* Playbook: #PB');
+    const training = await r.selectTraining('\n* Training: #TRAINING');
+
+    const { defaultStats } = playbook;
+    const excludedStats = STATS.filter(stat => defaultStats[stat] === 2);
+    const statIncrease = await r.selectStat({
+      excludedStats,
+      buttonValues: defaultStats,
+    });
+
+    defaultStats[statIncrease]++;
+    const { Creativity, Focus, Harmony, Passion } = defaultStats;
 
     const newPC = PlayerCharacter.build({
       userId: interaction.user.id,
-      name: interaction.options.getString('name'),
-      playbook: interaction.options.getString('playbook'),
+      name,
+      playbook: playbook.key,
       Creativity,
       Focus,
       Harmony,
       Passion,
-      backgrounds: 'Military, Wilderness',
     });
 
-    const stat = interaction.options.getString('stat-increase');
+    newPC[training] = true;
 
-    if (newPC[stat] === 2) {
-      await interaction.followUp(
-        `${playbook.name} already has a ${
-          stat[0].toUpperCase() + stat.slice(1)
-        } of +2, so you can't increase it during character creation. Choose another stat, and manually increase it using the \`\`/changestat\`\` command.`
-      );
-    } else {
-      newPC[stat]++;
-    }
-
-    newPC[interaction.options.getString('training')] = true;
     await newPC.save();
-
-    await interaction.followUp('Character successfully created!');
-
-    for (let i = 0; i < otherPCs.length; i++) {
-      const PC = otherPCs[i];
-      PC.active = false;
-      await PC.save();
-      console.log(PC);
+    const formerActive = otherPCs.find(pc => pc.active);
+    if (formerActive) {
+      formerActive.active = false;
+      await formerActive.save();
     }
+
+    await interaction.followUp({
+      content: `${name} is now your active character!`,
+      ephemeral: true,
+    });
   },
 };
