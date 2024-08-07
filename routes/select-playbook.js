@@ -32,7 +32,7 @@ module.exports = {
     });
     const choice = await options.awaitMessageComponent({
       filter: i => i.user.id === interaction.user.id,
-      time: 5 * 1_000,
+      time: 5 * 60 * 1_000,
     });
 
     const pbKey = choice.values[0];
