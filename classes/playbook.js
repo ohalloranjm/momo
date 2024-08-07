@@ -5,10 +5,12 @@ class Playbook {
   }
 
   setDefaultStats(Creativity, Focus, Harmony, Passion) {
-    this.Creativity = Creativity || 0;
-    this.Focus = Focus || 0;
-    this.Harmony = Harmony || 0;
-    this.Passion = Passion || 0;
+    this.default = {
+      Creativity: Creativity || 0,
+      Focus: Focus || 0,
+      Harmony: Harmony || 0,
+      Passion: Passion || 0,
+    };
     return this;
   }
 

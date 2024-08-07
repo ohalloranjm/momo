@@ -24,8 +24,10 @@ module.exports = {
     r.track,
     [r.selectPlaybook, '\n* Playbook: #PB'],
     [r.selectTraining, '\n* Training: #TRAINING'],
+    [r.selectStat, `Choose a stat to increase by +1.`],
 
     async function (interaction) {
+      const { playbook, training, stat } = interaction.momo;
       await interaction.followUp(`${interaction.momo}`);
     },
   ],
