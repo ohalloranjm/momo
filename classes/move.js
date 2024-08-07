@@ -3,7 +3,6 @@ const { playbooks } = require('../playbooks');
 const { STATS } = require('../constants');
 const { PlayerCharacter } = require('../database/models');
 const Roll = require('./roll');
-require('../functions');
 
 class Move {
   // one- or two-word slash command name, e.g. 'assess'
@@ -109,7 +108,7 @@ class Move {
 
     const roll = new Roll().addModifier(statValue, statName);
 
-    if (this.conditionModifiers) {
+    if (pc && this.conditionModifiers) {
       const conditionName = pc
         .conditionList()
         .find(c => Object.keys(this.conditionModifiers).includes(c));

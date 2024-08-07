@@ -7,8 +7,6 @@ const {
 } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
 const { conditions } = require('../../constants');
-require('../../responses');
-require('../../functions');
 
 module.exports = {
   alias: 'xc',
@@ -78,6 +76,7 @@ module.exports = {
       return;
     }
 
+    require('../../functions');
     const targetConditions = commandString.betterSplit(', ', ',', ' ');
 
     const msgArr = [];

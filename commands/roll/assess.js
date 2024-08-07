@@ -1,4 +1,4 @@
-const { Move, Roll } = require('../../classes');
+const { Move } = require('../../classes');
 
 const assess = new Move('assess')
   .setTitle('Assess a Situation')

@@ -1,16 +1,15 @@
-const icon = require('../settings/icon.js');
-const { EmbedBuilder, Embed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 class Roll {
-  constructor(action) {
+  constructor() {
     // roll 2d6 and add the results
-    if (action) this.trigger = `You **${action}.**`;
+
     this.dice = [
       1 + Math.floor(6 * Math.random()),
       1 + Math.floor(6 * Math.random()),
     ];
     this.total = this.dice[0] + this.dice[1];
-    this.equation = `${icon.roll} (${this.dice[0]}, ${this.dice[1]}) `;
+    this.equation = `:game_die: (${this.dice[0]}, ${this.dice[1]}) `;
     this.totalModifier = 0;
   }
 

@@ -66,16 +66,16 @@ module.exports = {
     }
 
     const playbook = Playbooks[interaction.options.getString('playbook')];
-    const { creativity, focus, harmony, passion } = playbook;
+    const { Creativity, Focus, Harmony, Passion } = playbook;
 
     const newPC = PlayerCharacter.build({
       userId: interaction.user.id,
       name: interaction.options.getString('name'),
       playbook: interaction.options.getString('playbook'),
-      creativity,
-      focus,
-      harmony,
-      passion,
+      Creativity,
+      Focus,
+      Harmony,
+      Passion,
       backgrounds: 'Military, Wilderness',
     });
 
@@ -85,15 +85,7 @@ module.exports = {
       await interaction.followUp(
         `${playbook.name} already has a ${
           stat[0].toUpperCase() + stat.slice(1)
-        } of +2, so you can't increase it during character creation. Choose another stat, and manually increase it using the ${[
-          'creativity',
-          'focus',
-          'harmony',
-          'passion',
-        ]
-          .filter(s => s !== stat)
-          .map((s, i) => `${i === 2 ? 'or ' : ''}/${s}`)
-          .join(', ')} command.`
+        } of +2, so you can't increase it during character creation. Choose another stat, and manually increase it using the \`\`/changestat\`\` command.`
       );
     } else {
       newPC[stat]++;

@@ -2,8 +2,7 @@
 const { Model } = require('sequelize');
 const path = require('node:path');
 const fs = require('node:fs');
-const { Op } = require('sequelize');
-const { conditions, STATS, STATUSES, TRAININGS } = require('../../constants');
+const playbooks = require('../../playbooks');
 
 module.exports = (sequelize, DataTypes) => {
   class PlayerCharacter extends Model {
@@ -56,27 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isIn: [
-            [
-              'adamant',
-              'bold',
-              'guardian',
-              'hammer',
-              'icon',
-              'idealist',
-              'pillar',
-              'prodigy',
-              'rogue',
-              'successor',
-              'destined',
-              'elder',
-              'foundling',
-              'razor',
-              'adrift',
-              'aspirant',
-              'outcast',
-            ],
-          ],
+          isIn: [Object.keys(playbooks)],
         },
       },
       Creativity: {
