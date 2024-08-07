@@ -41,7 +41,7 @@ module.exports = {
       if (message) finalEdits.content += message.replace('#TRAINING', training);
 
       await interaction.editReply(finalEdits);
-      interaction.momo.training = training;
+      return training;
     } catch (err) {
       if (err.code === 'InteractionCollectorError') {
         await interaction.editReply({
@@ -53,7 +53,5 @@ module.exports = {
         throw err;
       }
     }
-
-    return interaction;
   },
 };

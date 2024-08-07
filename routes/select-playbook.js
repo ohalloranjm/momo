@@ -38,7 +38,7 @@ module.exports = {
       });
 
       const pbKey = choice.values[0];
-      interaction.momo.playbook = playbooks[pbKey];
+      const playbook = playbooks[pbKey];
 
       const replyEdits = {
         components: [],
@@ -47,11 +47,11 @@ module.exports = {
       if (message) {
         const reply = await interaction.fetchReply();
         replyEdits.content =
-          reply.content +
-          message.replace('#PB', interaction.momo.playbook.name);
+          reply.content + message.replace('#PB', playbook.name);
       }
 
       await choice.update(replyEdits);
+      return playbook;
     } catch (err) {
       if (err.code === 'InteractionCollectorError') {
         await interaction.editReply({

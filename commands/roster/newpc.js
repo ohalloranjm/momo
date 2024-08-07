@@ -20,13 +20,10 @@ module.exports = {
     const r = require('../../routes')(interaction);
 
     r.track();
-    await r.selectPlaybook('\n* Playbook: #PB');
-    await r.selectTraining('\n* Training: #TRAINING');
-    await r.selectStat();
+    const playbook = await r.selectPlaybook('\n* Playbook: #PB');
+    const training = await r.selectTraining('\n* Training: #TRAINING');
+    console.log(playbook, training);
 
-    // async function (interaction) {
-    //   const { playbook, training, stat } = interaction.momo;
-    //   await interaction.followUp(`${interaction.momo}`);
-    // },
+    await r.selectStat();
   },
 };
