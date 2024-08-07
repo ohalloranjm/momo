@@ -16,7 +16,7 @@ class Move {
     return this;
   }
 
-  // default stat to use when rolling, e.g. 'harmony'
+  // default stat to use when rolling, e.g. 'Harmony'
   setStat(stat) {
     this.stat = stat;
     return this;
