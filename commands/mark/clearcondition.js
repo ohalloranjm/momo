@@ -76,7 +76,7 @@ module.exports = {
       return;
     }
 
-    require('../../functions');
+    require('../../utils/custom-methods');
     const targetConditions = commandString.betterSplit(', ', ',', ' ');
 
     const msgArr = [];

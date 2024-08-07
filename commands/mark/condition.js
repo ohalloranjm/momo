@@ -7,7 +7,7 @@ const {
 } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
 const { conditions } = require('../../constants');
-require('../../functions');
+require('../../utils/custom-methods');
 
 module.exports = {
   alias: 'c',

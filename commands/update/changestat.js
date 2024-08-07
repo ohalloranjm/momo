@@ -1,8 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { STATS } = require('../../constants');
 const { PlayerCharacter } = require('../../database/models');
-const playbooks = require('../../playbooks');
-require('../../functions');
+require('../../utils/custom-methods');
 
 module.exports = {
   data: new SlashCommandBuilder()

@@ -5,6 +5,7 @@ const {
   ButtonStyle,
   SlashCommandBuilder,
 } = require('discord.js');
+require('../../utils/custom-methods');
 
 module.exports = {
   alias: 'b',
