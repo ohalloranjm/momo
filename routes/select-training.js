@@ -25,33 +25,21 @@ module.exports = {
 
     const options = await interaction.editReply(replyEdits);
 
-    try {
-      const choice = await options.awaitMessageComponent({
-        time: 2 * 60 * 1_000,
-      });
+    const choice = await options.awaitMessageComponent({
+      time: 2 * 60 * 1_000,
+    });
 
-      await choice.deferUpdate();
+    await choice.deferUpdate();
 
-      const training = choice.customId;
+    const training = choice.customId;
 
-      const finalEdits = {
-        components: [],
-        content: reply.content,
-      };
-      if (message) finalEdits.content += message.replace('#TRAINING', training);
+    const finalEdits = {
+      components: [],
+      content: reply.content,
+    };
+    if (message) finalEdits.content += message.replace('#TRAINING', training);
 
-      await interaction.editReply(finalEdits);
-      return training;
-    } catch (err) {
-      if (err.code === 'InteractionCollectorError') {
-        await interaction.editReply({
-          content: 'Training not chosen within 2 minutes, cancelling',
-          components: [],
-        });
-        interaction.breakChain = true;
-      } else {
-        throw err;
-      }
-    }
+    await interaction.editReply(finalEdits);
+    return training;
   },
 };

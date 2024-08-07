@@ -30,41 +30,26 @@ module.exports = {
     const options = await interaction.editReply({
       components: [row],
     });
+    const choice = await options.awaitMessageComponent({
+      filter: i => i.user.id === interaction.user.id,
+      time: 5 * 1_000,
+    });
 
-    try {
-      const choice = await options.awaitMessageComponent({
-        filter: i => i.user.id === interaction.user.id,
-        time: 5 * 60 * 1_000,
-      });
+    const pbKey = choice.values[0];
+    const playbook = playbooks[pbKey];
 
-      const pbKey = choice.values[0];
-      const playbook = playbooks[pbKey];
+    const replyEdits = {
+      components: [],
+    };
 
-      const replyEdits = {
-        components: [],
-      };
-
-      if (message) {
-        const reply = await interaction.fetchReply();
-        replyEdits.content =
-          reply.content + message.replace('#PB', playbook.name);
-      }
-
-      await choice.update(replyEdits);
-      console.log(playbook);
-      return playbook;
-    } catch (err) {
-      if (err.code === 'InteractionCollectorError') {
-        await interaction.editReply({
-          content: 'Playbook not chosen within 5 minutes, cancelling',
-          components: [],
-        });
-        interaction.breakChain = true;
-      } else {
-        throw err;
-      }
+    if (message) {
+      const reply = await interaction.fetchReply();
+      replyEdits.content =
+        reply.content + message.replace('#PB', playbook.name);
     }
 
-    return interaction;
+    await choice.update(replyEdits);
+    console.log(playbook);
+    return playbook;
   },
 };

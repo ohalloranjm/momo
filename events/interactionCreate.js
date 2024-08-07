@@ -16,16 +16,22 @@ module.exports = {
 
     try {
       await command.execute(interaction);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+
+      const content =
+        err.code === 'InteractionCollectorError'
+          ? 'Timed out'
+          : 'There was an error while executing this command!';
+
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({
-          content: 'There was an error while executing this command!',
+          content,
           ephemeral: true,
         });
       } else {
         await interaction.reply({
-          content: 'There was an error while executing this command!',
+          content,
           ephemeral: true,
         });
       }
