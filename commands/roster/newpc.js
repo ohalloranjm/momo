@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { acceptInputs, selectPlaybook } = require('../../routes');
+const r = require('../../routes');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,8 +19,9 @@ module.exports = {
         ephemeral: true,
       }),
 
-    // acceptInputs,
-    selectPlaybook,
+    r.acceptInputs,
+    r.selectPlaybook,
+    r.selectTraining,
 
     async function (interaction) {
       await interaction.followUp(

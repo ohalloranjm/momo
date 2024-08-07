@@ -39,7 +39,6 @@ module.exports = {
       });
 
       const key = choice.values[0];
-      if (!interaction.inputs) interaction.inputs = {};
       interaction.inputs.playbook = playbooks[key];
 
       await choice.update({
