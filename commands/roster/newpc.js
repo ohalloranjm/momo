@@ -6,11 +6,12 @@ const {
 } = require('discord.js');
 
 const selectPlaybook = async function (interaction) {
+  const playbooks = require('../../playbooks');
+
   const select = new StringSelectMenuBuilder()
     .setCustomId('playbook')
     .setPlaceholder('Choose a playbook');
 
-  const playbooks = require('../../playbooks');
   for (const key of Object.keys(playbooks)) {
     const playbook = playbooks[key];
     select.addOptions(
@@ -37,12 +38,8 @@ const selectPlaybook = async function (interaction) {
       time: 60_000,
     });
 
-    console.log(choice);
-
-    await choice.update({
-      content: `You have selected the ${choice.values[0]}.`,
-      components: [],
-    });
+    const key = choice.values[0];
+    interaction.selectedPlaybook = playbooks[key];
   } catch (e) {
     console.error(e);
     await interaction.editReply({
@@ -70,6 +67,8 @@ module.exports = {
 
     await selectPlaybook(interaction);
 
-    return await interaction.followUp('Howdy');
+    return await interaction.followUp(
+      `You chose ${interaction.selectedPlaybook.name}`
+    );
   },
 };
