@@ -5,7 +5,7 @@ class Playbook {
   }
 
   setDefaultStats(Creativity, Focus, Harmony, Passion) {
-    this.default = {
+    this.defaultStats = {
       Creativity: Creativity || 0,
       Focus: Focus || 0,
       Harmony: Harmony || 0,

@@ -51,6 +51,7 @@ module.exports = {
       }
 
       await choice.update(replyEdits);
+      console.log(playbook);
       return playbook;
     } catch (err) {
       if (err.code === 'InteractionCollectorError') {
