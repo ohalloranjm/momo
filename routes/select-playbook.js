@@ -8,7 +8,7 @@ const {
 module.exports = {
   name: 'selectPlaybook',
 
-  async execute(interaction) {
+  async execute(interaction, message) {
     const select = new StringSelectMenuBuilder()
       .setCustomId('playbook')
       .setPlaceholder('Choose a playbook');
@@ -27,26 +27,35 @@ module.exports = {
 
     const row = new ActionRowBuilder().addComponents(select);
 
-    const response = await interaction.followUp({
-      content: 'Choose a playbook.',
+    const options = await interaction.editReply({
       components: [row],
     });
 
     try {
-      const choice = await response.awaitMessageComponent({
+      const choice = await options.awaitMessageComponent({
         filter: i => i.user.id === interaction.user.id,
-        time: 2 * 60 * 1_000,
+        time: 5 * 60 * 1_000,
       });
 
-      const key = choice.values[0];
-      interaction.momo.playbook = playbooks[key];
+      const pbKey = choice.values[0];
+      interaction.momo.playbook = playbooks[pbKey];
 
-      await response.delete();
+      const replyEdits = {
+        components: [],
+      };
+
+      if (message) {
+        const reply = await interaction.fetchReply();
+        replyEdits.content =
+          reply.content +
+          message.replace('#PB', interaction.momo.playbook.name);
+      }
+
+      await choice.update(replyEdits);
     } catch (err) {
-      console.error(err);
       if (err.code === 'InteractionCollectorError') {
         await interaction.editReply({
-          content: 'Playbook not chosen within 2 minutes, cancelling',
+          content: 'Playbook not chosen within 5 minutes, cancelling',
           components: [],
         });
         interaction.breakChain = true;

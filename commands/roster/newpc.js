@@ -15,18 +15,18 @@ module.exports = {
   execute: [
     async i =>
       await i.reply({
-        content: `Name: ${i.options.getString('name')}`,
+        content: `## Building Player Character: ${i.options.getString(
+          'name'
+        )}…`,
         ephemeral: true,
       }),
 
     r.track,
-    r.selectPlaybook,
-    r.selectTraining,
+    [r.selectPlaybook, '\n* Playbook: #PB'],
+    [r.selectTraining, '\n* Training: #TRAINING'],
 
     async function (interaction) {
-      await interaction.followUp(
-        `Hey kids ${interaction.inputs.playbook.name}`
-      );
+      await interaction.followUp(`${interaction.momo}`);
     },
   ],
 };
