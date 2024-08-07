@@ -15,18 +15,7 @@ module.exports = {
     }
 
     try {
-      if (Array.isArray(command.execute)) {
-        let chain = command.execute;
-        while (chain.length) {
-          const link = chain[0];
-          const cb = Array.isArray(link) ? link[0] : link;
-          const params = Array.isArray(link) ? link.slice(1) : [];
-          await cb(interaction, ...params);
-          chain = interaction.breakChain ? [] : chain.slice(1);
-        }
-      } else {
-        await command.execute(interaction);
-      }
+      await command.execute(interaction);
     } catch (error) {
       console.error(error);
       if (interaction.replied || interaction.deferred) {

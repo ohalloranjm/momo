@@ -1,6 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const r = require('../../routes');
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('newpc')
@@ -12,23 +10,23 @@ module.exports = {
         .setRequired(true)
     ),
 
-  execute: [
-    async i =>
-      await i.reply({
-        content: `## Building Player Character: ${i.options.getString(
-          'name'
-        )}…`,
-        ephemeral: true,
-      }),
+  async execute(interaction) {
+    await interaction.reply({
+      content: `## Building Player Character: ${interaction.options.getString(
+        'name'
+      )}…`,
+      ephemeral: true,
+    });
+    const r = require('../../routes')(interaction);
 
-    r.track,
-    [r.selectPlaybook, '\n* Playbook: #PB'],
-    [r.selectTraining, '\n* Training: #TRAINING'],
-    [r.selectStat, `Choose a stat to increase by +1.`],
+    r.track();
+    await r.selectPlaybook('\n* Playbook: #PB');
+    await r.selectTraining('\n* Training: #TRAINING');
+    await r.selectStat();
 
-    async function (interaction) {
-      const { playbook, training, stat } = interaction.momo;
-      await interaction.followUp(`${interaction.momo}`);
-    },
-  ],
+    // async function (interaction) {
+    //   const { playbook, training, stat } = interaction.momo;
+    //   await interaction.followUp(`${interaction.momo}`);
+    // },
+  },
 };
