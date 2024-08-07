@@ -39,12 +39,9 @@ module.exports = {
       });
 
       const key = choice.values[0];
-      interaction.inputs.playbook = playbooks[key];
+      interaction.momo.playbook = playbooks[key];
 
-      await choice.update({
-        content: `Playbook: The ${key}`,
-        components: [],
-      });
+      await response.delete();
     } catch (err) {
       console.error(err);
       if (err.code === 'InteractionCollectorError') {

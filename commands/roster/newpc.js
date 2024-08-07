@@ -19,7 +19,7 @@ module.exports = {
         ephemeral: true,
       }),
 
-    r.acceptInputs,
+    r.track,
     r.selectPlaybook,
     r.selectTraining,
 

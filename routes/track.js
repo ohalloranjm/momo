@@ -1,8 +1,8 @@
 module.exports = {
-  name: 'acceptInputs',
+  name: 'track',
 
   execute(interaction) {
-    interaction.inputs = {};
+    interaction.momo = {};
     return interaction;
   },
 };

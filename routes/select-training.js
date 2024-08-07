@@ -18,25 +18,23 @@ module.exports = {
     const options = await interaction.followUp({
       content: 'Choose a training.',
       components: [row1, row2],
+      ephemeral: true,
     });
 
     try {
       const choice = await options.awaitMessageComponent({
         filter: i => i.user.id === interaction.user.id,
-        time: 2 * 60 * 1_000,
+        time: 5 * 1_000,
       });
 
       const training = choice.customId;
 
-      await choice.update({
-        content: `Training: ${training}`,
-        components: [],
-      });
+      await options.delete();
 
-      interaction.inputs.training = training;
+      interaction.momo.training = training;
     } catch (err) {
       if (err.code === 'InteractionCollectorError') {
-        await interaction.editReply({
+        await options.edit({
           content: 'Training not chosen within 2 minutes, cancelling',
           components: [],
         });
