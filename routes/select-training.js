@@ -30,6 +30,8 @@ module.exports = {
         time: 2 * 60 * 1_000,
       });
 
+      await choice.deferUpdate();
+
       const training = choice.customId;
 
       const finalEdits = {
