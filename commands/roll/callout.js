@@ -10,9 +10,10 @@ module.exports = {
       option
         .setName('modifier')
         .setDescription(
-          'A number to add to your roll, or a negative number to subtract from it.'
+          'The called-out principle, plus modifiers (conditions are auto-applied)'
         )
     ),
+
   async execute(interaction) {
     await interaction.deferReply();
 
