@@ -36,6 +36,7 @@ module.exports = {
     const statIncrease = await r.selectStat({
       excludedStats,
       buttonValues: defaultStats,
+      tempMessage: '\nChoose a stat to increase by +1 (max. +2).',
     });
 
     defaultStats[statIncrease]++;

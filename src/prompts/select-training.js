@@ -4,7 +4,7 @@ const { TRAININGS } = require('../utils/constants');
 module.exports = {
   name: 'selectTraining',
 
-  async execute(interaction, message, tempMessage = '\n\nChoose a training.') {
+  async execute(interaction, message, tempMessage = '\nChoose a training.') {
     const buttons = TRAININGS.map(training =>
       new ButtonBuilder()
         .setCustomId(training)

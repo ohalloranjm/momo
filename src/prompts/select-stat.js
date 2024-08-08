@@ -6,7 +6,7 @@ module.exports = {
   name: 'selectStat',
 
   async execute(interaction, options = {}) {
-    const { excludedStats, buttonValues } = options;
+    const { excludedStats, buttonValues, tempMessage } = options;
 
     const buttons = STATS.map(stat => {
       const button = new ButtonBuilder()
@@ -22,7 +22,15 @@ module.exports = {
     });
     const row = new ActionRowBuilder().addComponents(buttons);
 
-    const selection = await interaction.editReply({ components: [row] });
+    const reply = await interaction.fetchReply();
+    let { content } = reply;
+
+    if (tempMessage) content += tempMessage;
+
+    const selection = await interaction.editReply({
+      content,
+      components: [row],
+    });
 
     const choice = await selection.awaitMessageComponent({
       time: 2 * 60 * 1_000,
@@ -31,6 +39,7 @@ module.exports = {
     await choice.deferUpdate();
 
     await interaction.editReply({
+      content: reply.content,
       components: [],
     });
 
