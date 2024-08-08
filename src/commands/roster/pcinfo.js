@@ -1,5 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 const { PlayerCharacter } = require('../../database/models');
+const { STATS } = require('../../utils/constants');
 require('../../utils/custom-methods');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
       option
         .setName('public')
         .setDescription(
-          'Set true if you want other people to see the message, too.'
+          'Set true if you want other people to see your character’s stats, too.'
         )
     ),
   async execute(interaction) {
@@ -23,18 +24,30 @@ module.exports = {
 
     const { principles } = pc.getPlaybook();
 
-    interaction.followUp(
-      `## ${pc.name}, the ${pc.playbook}
-${-pc.balance.sign()} ${principles[0]} / ${pc.balance.sign()} ${principles[1]}
-Center: ${-pc.center.sign()} / ${pc.center.sign()}
-${pc.Creativity.sign()} Creativity, ${pc.Focus.sign()} Focus, ${pc.Harmony.sign()} Harmony, ${pc.Passion.sign()} Passion
+    const embed = new EmbedBuilder()
+      .setColor(0x0099ff)
+      .setTitle(`${pc.name}, the ${pc.playbook}`)
+      .addFields(
+        {
+          name: 'Stats',
+          value: STATS.map(s => `${s} ${pc[s].sign()}`).join(', '),
+        },
+        {
+          name: 'Balance',
+          value: `${(-pc.balance).sign()} ${
+            principles[0]
+          } / ${pc.balance.sign()} ${
+            principles[1]
+          } (Center: ${(-pc.center).sign()}/${pc.center.sign()})`,
+        },
+        {
+          name: 'Conditions',
+          value: pc.conditionList(true),
+        },
+        { name: 'Fatigue', value: `${pc.fatigue}/5`, inline: true },
+        { name: 'Training', value: pc.trainingList(true), inline: true }
+      );
 
-**Training:** ${pc.trainingList(true)}
-
-**${pc.fatigue}** Fatigue | **${pc.conditionList(true)}** Marked | **${
-        pc.growth
-      }** Growth
-`
-    );
+    interaction.followUp({ embeds: [embed] });
   },
 };
