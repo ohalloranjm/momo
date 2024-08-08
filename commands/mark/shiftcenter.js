@@ -16,14 +16,13 @@ module.exports = {
         .setDescription('The principle to shift your balance toward.')
     ),
   async execute(interaction) {
-    await interaction.deferReply();
+    const target = interaction.options.getString('principle');
+    await interaction.deferReply({ ephemeral: !target });
 
     const pc = await PlayerCharacter.grab(interaction, 'balance');
     if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
-    const target = interaction.options.getString('principle');
     const { principles } = pc.getPlaybook();
-    let shift;
 
     if (!target) {
       const row = new ActionRowBuilder()
@@ -45,26 +44,30 @@ module.exports = {
         components: [row],
       });
 
-      try {
-        const chosenPrinciple = await choosePrinciple.awaitMessageComponent({
-          filter: i => i.user.id === interaction.user.id,
-          time: 60_000,
-        });
+      const chosenPrinciple = await choosePrinciple.awaitMessageComponent({
+        filter: i => i.user.id === interaction.user.id,
+        time: 60_000,
+      });
 
-        const d = chosenPrinciple.customId === 'left' ? -1 : 1;
-        shift = await pc.shiftCenter(d);
-        console.log(shift);
-        await chosenPrinciple.update({
-          content: shift.message,
-          components: [],
-        });
-      } catch (err) {
-        console.error(err);
-        await choosePrinciple.update({
-          content: 'Timed out after 1 minute.',
-          components: [],
-        });
-      }
+      const d = chosenPrinciple.customId === 'left' ? -1 : 1;
+      const shift = await pc.shiftCenter(d);
+      await interaction.followUp({
+        content: shift.message,
+      });
+      return await interaction.deleteReply();
+    }
+
+    const idx = principles.indexOf(
+      principles.find(p => p.toLowerCase() === target.toLowerCase())
+    );
+
+    if (idx === -1) {
+      await interaction.followUp(
+        `${target} is not a valid principle. Choose ${principles[0]} or ${principles[1]}.`
+      );
+    } else {
+      const shift = await pc.shiftCenter(idx === 0 ? -1 : 1);
+      await interaction.followUp(shift.message);
     }
   },
 };
