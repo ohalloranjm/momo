@@ -100,7 +100,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 0,
         validate: {
-          min: -2,
+          min: -3,
           max: 3,
         },
       },
