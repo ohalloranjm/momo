@@ -15,7 +15,9 @@ module.exports = {
     if (+conditionsArr[index] === +val)
       return {
         success: false,
-        message: `${this.name} is already ${condition}.`,
+        message: `${this.name} ${
+          val ? 'is already' : 'already isn’t'
+        } ${condition}.`,
       };
 
     conditionsArr[index] = +val;

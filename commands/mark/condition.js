@@ -22,7 +22,9 @@ module.exports = {
         )
     ),
   async execute(interaction) {
-    await interaction.deferReply();
+    const commandString = interaction.options.getString('conditions');
+
+    await interaction.deferReply({ ephemeral: !commandString });
 
     const pc = await PlayerCharacter.grab(interaction, 'conditions');
     if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
@@ -30,8 +32,6 @@ module.exports = {
     const playbookConditions =
       pc.playbook === 'Elder' ? conditions.ELDER : conditions.DEFAULT;
     const alreadyMarked = pc.conditionList();
-
-    const commandString = interaction.options.getString('conditions');
 
     if (!commandString) {
       // send a button per condition, disabled if it's chosen, and await the clicking of those buttons
