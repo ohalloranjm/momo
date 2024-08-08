@@ -12,16 +12,6 @@ module.exports = {
     ELDER: ['Frustrated', 'Jaded', 'Remorseful', 'Shaken', 'Worried'],
   },
   STATS: ['Creativity', 'Focus', 'Harmony', 'Passion'],
-  STATUSES: [
-    'Empowered',
-    'Favored',
-    'Inspired',
-    'Prepared',
-    'Doomed',
-    'Impaired',
-    'Trapped',
-    'Stunned',
-  ],
   TRAININGS: [
     'Waterbending',
     'Earthbending',

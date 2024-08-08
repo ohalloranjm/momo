@@ -1,5 +1,5 @@
 const { BaseInteraction, User } = require('discord.js');
-const { STATS, STATUSES, TRAININGS } = require('../../../../utils/constants');
+const { STATS, TRAININGS } = require('../../../../utils/constants');
 
 const { Op } = require('sequelize');
 
@@ -59,7 +59,6 @@ module.exports = {
       ],
       balance: ['playbook', 'balance', 'center'],
       stats: STATS,
-      statuses: STATUSES,
       training: TRAININGS,
     };
 
