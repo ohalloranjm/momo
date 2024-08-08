@@ -10,7 +10,9 @@ module.exports = {
 
     const response = await this.setFatigue(5);
     const spillover = target - 5;
-    response.message += ` and is forced to mark ${spillover} conditions.`;
+    response.message =
+      response.message.slice(0, -1) +
+      `, and is forced to mark ${spillover} conditions.`;
 
     const conditionsMarked = this.conditionsMarked();
 
@@ -21,7 +23,7 @@ module.exports = {
       this.conditions = '11111';
       await this.save();
     } else {
-      response.message += ' Type ``/condition`` to mark them.';
+      response.message += ' (Use ``/c`` or ``/condition`` to mark them.)';
     }
 
     return response;
