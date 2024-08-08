@@ -40,7 +40,6 @@ module.exports = {
     }
 
     let target = interaction.options.getString('principle');
-    console.log(target);
     await interaction.deferReply({ ephemeral: !!pc && !target });
 
     let balanceMod;
