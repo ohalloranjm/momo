@@ -19,7 +19,7 @@ module.exports = {
     if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     if (!pc.fatigue)
-      return await interaction.followUp('You have no fatigue to clear.');
+      return await interaction.followUp(`${pc.name} has no fatigue to clear.`);
 
     const n = interaction.options.getInteger('amount') || 1;
     pc.fatigue = Math.max(0, pc.fatigue - n);
