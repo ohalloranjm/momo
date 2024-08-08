@@ -20,14 +20,14 @@ module.exports = {
         )
     ),
   async execute(interaction) {
-    await interaction.deferReply();
+    let target = interaction.options.getString('principle');
+    await interaction.deferReply({ ephemeral: !target });
 
     const pc = await PlayerCharacter.grab(interaction, 'balance');
     if (!pc) return await interaction.followUp(PlayerCharacter.nopc);
 
     const { principles } = pc.getPlaybook();
 
-    let target = interaction.options.getString('principle');
     let shift = target
       ? await pc.shiftBalance(target)
       : {
@@ -52,65 +52,25 @@ module.exports = {
         components: [row],
       });
 
-      try {
-        const confirmPrinciple = await click.awaitMessageComponent({
-          filter: i => i.user.id === interaction.user.id,
-          time: 60_000,
-        });
+      const confirmPrinciple = await click.awaitMessageComponent({
+        filter: i => i.user.id === interaction.user.id,
+        time: 60_000,
+      });
 
-        shift = await pc.shiftBalance(confirmPrinciple.customId);
+      shift = await pc.shiftBalance(confirmPrinciple.customId);
 
-        await confirmPrinciple.update({
-          content: `:thumbsup:`,
-          components: [],
-        });
-      } catch (e) {
-        console.error(e);
-        await interaction.editReply({
-          content: 'Answer not received within 1 minute, cancelling',
-          components: [],
-        });
-      }
+      await confirmPrinciple.update({
+        content: `:thumbsup:`,
+        components: [],
+      });
     }
 
     // if shifting causes loss of balance, confirm with player
     if (shift.status === 'lose-balance') {
-      const row = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-          .setCustomId('lose')
-          .setStyle(ButtonStyle.Primary)
-          .setLabel(`Lose Balance toward ${shift.shifted}`),
-        new ButtonBuilder()
-          .setCustomId('keep')
-          .setStyle(ButtonStyle.Secondary)
-          .setLabel('Don’t Lose Balance')
+      await interaction.followUp(
+        shift.message +
+          '\n\nMomo can’t help you resolve this move yet; refer to the play materials and run ``/shiftcenter`` and ``/resetbalance`` as needed.'
       );
-
-      const lose = await interaction.followUp({
-        content: shift.message,
-        components: [row],
-      });
-
-      try {
-        const confirmLose = await lose.awaitMessageComponent({
-          filter: i => i.user.id === interaction.user.id,
-          time: 60_000,
-        });
-
-        await confirmLose.update({
-          content:
-            confirmLose.customId === 'lose'
-              ? 'Feature Coming Soon'
-              : 'Fine, keep your secrets',
-          components: [],
-        });
-      } catch (e) {
-        console.error(e);
-        await interaction.editReply({
-          content: 'Confirmation not received within 1 minute, cancelling',
-          components: [],
-        });
-      }
     }
 
     // standard success message
