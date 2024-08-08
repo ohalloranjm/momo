@@ -26,7 +26,7 @@ module.exports = {
     const name = interaction.options.getString('name');
     await interaction.followUp(`## Building Player Character: ${name}…`);
 
-    const r = require('../../routes')(interaction);
+    const r = require('../../prompts')(interaction);
 
     const playbook = await r.selectPlaybook('\n* Playbook: #PB');
     const training = await r.selectTraining('\n* Training: #TRAINING');

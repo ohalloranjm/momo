@@ -100,7 +100,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 0,
         validate: {
-          min: -2,
+          min: -3,
           max: 3,
         },
       },
@@ -200,83 +200,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
-      },
-      growth: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-          max: 4,
-        },
-      },
-      advanceMoveOwn: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-          max: 2,
-        },
-      },
-      advanceMoveOther: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-          max: 2,
-        },
-      },
-      advanceCenter: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-          max: 2,
-        },
-      },
-      advanceMomentBalance: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-          max: 2,
-        },
-      },
-      advanceCreativity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-        },
-      },
-      advanceFocus: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-        },
-      },
-      advanceHarmony: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-        },
-      },
-      advancePassion: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        validate: {
-          min: 0,
-        },
       },
     },
     {

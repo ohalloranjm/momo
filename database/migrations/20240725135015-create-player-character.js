@@ -142,51 +142,6 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      growth: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: false,
-      },
-      advanceMoveOwn: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advanceMoveOther: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advanceCenter: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advanceMomentBalance: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advanceCreativity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advanceFocus: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advanceHarmony: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
-      advancePassion: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
