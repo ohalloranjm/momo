@@ -6,17 +6,34 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('deny')
     .setDescription('Deny a Callout')
+    .addStringOption(option =>
+      option
+        .setName('principle')
+        .setDescription('The name of called-out principle')
+    )
     .addIntegerOption(option =>
       option
-        .setName('modifier')
+        .setName('extra-modifier')
         .setDescription(
-          'A number to add to your roll, or a negative number to subtract from it.'
+          'Additional modifiers on top of your principle, e.g. hold or ongoing (conditions are automatic)'
+        )
+    )
+    .addIntegerOption(option =>
+      option
+        .setName('override-modifier')
+        .setDescription(
+          'Manually set the total modifier, ignoring all other stats, penalties, and modifiers'
         )
     ),
-  async execute(interaction) {
-    await interaction.deferReply();
 
-    const pc = await PlayerCharacter.grab(interaction, 'conditions');
+  async execute(interaction) {
+    const target = interaction.options.getString('principle');
+    await interaction.deferReply({ ephemeral: !target });
+
+    const pc = await PlayerCharacter.grab(interaction, [
+      'conditions',
+      'balance',
+    ]);
 
     const roll = new Roll().addModifier(
       interaction.options.getInteger('modifier')

@@ -45,7 +45,7 @@ class Move {
         option
           .setName('extra-modifier')
           .setDescription(
-            `Additional modifiers on top of your ${move.stat}, e.g. from hold or ongoing.`
+            `Additional modifiers on top of your ${move.stat}, e.g. hold or ongoing (conditions are automatic)`
           )
       )
       .addStringOption(option => {
@@ -58,7 +58,7 @@ class Move {
         return option
           .setName('alt-stat')
           .setDescription(
-            `Use a different stat, balance principle, or conditions marked for this roll, instead of ${move.stat}.`
+            `Use a different stat, balance principle, or conditions marked for this roll, instead of ${move.stat}`
           )
           .addChoices(choices);
       })
@@ -66,7 +66,7 @@ class Move {
         option
           .setName('override-modifier')
           .setDescription(
-            `Manually set the total modifier, ignoring all other stats, penalties, and modifiers.`
+            `Manually set the total modifier, ignoring all other stats, penalties, and modifiers`
           )
       );
   }
