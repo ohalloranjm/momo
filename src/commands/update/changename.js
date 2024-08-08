@@ -18,10 +18,10 @@ module.exports = {
     const pc = await PlayerCharacter.grab(interaction);
     if (!pc) await interaction.followUp(PlayerCharacter.nopc);
     const oldName = pc.name;
-    pc.name = interaction.options.getString('name');
-    await pc(save);
+    pc.name = interaction.options.getString('new-name');
+    await pc.save();
     await interaction.followUp(
-      `Your active character’s name is now ${pc.name}\n(Former name: ${oldName})`
+      `Your active character’s name is now ${pc.name}.\n*(Former name: ${oldName})*`
     );
   },
 };
