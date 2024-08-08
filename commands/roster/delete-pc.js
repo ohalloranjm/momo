@@ -12,6 +12,7 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
+    await interaction.deferReply();
     const name = interaction.options.getString('name');
 
     const roster = await PlayerCharacter.grab(interaction, { roster: true });
@@ -19,7 +20,7 @@ module.exports = {
     const { length } = roster;
 
     if (!length) {
-      await interaction.reply({
+      await interaction.followUp({
         content:
           'There are no player characters associated with your account, thus nothing to delete.',
         ephemeral: true,
@@ -30,7 +31,7 @@ module.exports = {
     const toDelete = roster.find(pc => pc.name === name);
 
     if (!toDelete) {
-      await interaction.reply({
+      await interaction.followUp({
         content: `Could not find a player character named ${name} associated with your account.`,
         ephemeral: true,
       });
@@ -38,7 +39,7 @@ module.exports = {
     }
 
     await toDelete.destroy();
-    await interaction.reply({
+    await interaction.followUp({
       content: `Goodbye, ${name}.`,
       ephemeral: true,
     });
