@@ -3,7 +3,7 @@ const { PlayerCharacter } = require('../../database/models');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('switch-pc')
+    .setName('switchpc')
     .setDescription('Change your active PC to a different PC')
     .addStringOption(option =>
       option
