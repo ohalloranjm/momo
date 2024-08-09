@@ -14,9 +14,9 @@ If you already have a player character with the chosen name, Momo will tell you 
 
 Otherwise, Momo will walk you through the process of creating a new character.
 
-1. Choose a playbook. This will determine your starting stats and balance principles. Choosing the Elder will also change which conditions you have access to.
+1. Choose a playbook. This will also determine your starting stats, balance principles, and (if you choose the Elder) the conditions you can mark.
 2. Choose a training.
-3. Choose a stat to increase by +1, to a maximum of +2. If your playbook comes with a stat already set to +2, the button for that stat is disabled.
+3. Choose a stat to increase by +1, to a maximum of +2. If your playbook comes with a stat already set to +2, the button for that stat will be disabled.
 
 Each of these steps has a timeout associated with it (5m for the first step, then 2m each for the next two steps). If any time window is exceeded, Momo will tell you that you timed out, and you’ll need to run the command again.
 
