@@ -8,10 +8,10 @@ Each Discord account may have up to five player characters. Only one of your PCs
 
 - [`/newpc`](commands/newpc.md): Create a new player character.
 - [`/pclist`](commands/pclist.md): List all of your created PCs.
-- [`/switchpc`](command/switchpc.md): Change your active PC to a different PC you’ve already created.
-- [`/pcinfo`](command/pcinfo.md): Display all information about your active PC.
-- [`/delete-pc`](command/delete-pc.md): Delete a player character from your account.
-- [`/change-stat`](command/changestat): Change your active PC’s Creativity, Harmony, Focus, or Passion.
+- [`/switchpc`](commands/switchpc.md): Change your active PC to a different PC you’ve already created.
+- [`/pcinfo`](commands/pcinfo.md): Display all information about your active PC.
+- [`/delete-pc`](commands/delete-pc.md): Delete a player character from your account.
+- [`/change-stat`](commands/changestat): Change your active PC’s Creativity, Harmony, Focus, or Passion.
 
 ## Rolling Moves
 
@@ -49,8 +49,8 @@ To _live up to your balance principle_ on a basic or stance move, set the `alter
 
 - [`/c` or `/condition`](commands/condition.md): Mark one or more conditions.
 - [`/xc` or `/clearcondition`](commands/clearcondition.md): Clear one or more conditions.
-- [`/f` or `/fatigue`](command/fatigue.md): Mark one or more fatigue.
-- [`/xf` or `/clearfatigue`](command/clearfatigue.md): Clear one or more fatigue.
+- [`/f` or `/fatigue`](commands/fatigue.md): Mark one or more fatigue.
+- [`/xf` or `/clearfatigue`](commands/clearfatigue.md): Clear one or more fatigue.
 - [`/b` or `/balance`](commands/balance.md): Shift your balance.
 - [`/resetbalance`](commands/resetbalance.md): Set your balance to center.
 - [`/shiftcenter`](commands/shiftcenter): Shift your center of balance.
