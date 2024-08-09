@@ -11,7 +11,7 @@ Each Discord account may have up to five player characters. Only one of your PCs
 - [`/switchpc`](commands/switchpc.md): Change your active PC to a different PC you’ve already created.
 - [`/pcinfo`](commands/pcinfo.md): Display all information about your active PC.
 - [`/delete-pc`](commands/delete-pc.md): Delete a player character from your account.
-- [`/change-stat`](commands/changestat.md): Change your active PC’s Creativity, Harmony, Focus, or Passion.
+- [`/changestat`](commands/changestat.md): Change your active PC’s Creativity, Harmony, Focus, or Passion.
 
 ## Rolling Moves
 
