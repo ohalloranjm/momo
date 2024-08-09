@@ -24,6 +24,12 @@ module.exports = {
     }
 
     const name = interaction.options.getString('name');
+    if (otherPCs.some(pc => pc.name === name)) {
+      return await interaction.followUp(
+        `You already have a character named ${name}. Please choose a unique name.`
+      );
+    }
+
     await interaction.followUp(`## Building Player Character: ${name}…`);
 
     const r = require('../../prompts')(interaction);
