@@ -1,16 +1,18 @@
+# Slash Commands
+
 Momo takes the following slash commands.
 
-### Create & Manage Player Characters
+## Create & Manage Player Characters
 
 Each Discord account may have up to five player characters (PCs).
 
-- `/newpc`: Create a new player character.
-- `/pclist`: List all of your created PCs.
+- [`/newpc`](commands/newpc.md): Create a new player character.
+- [`/pclist`](commands/pclist.md): List all of your created PCs.
 - `/switchpc`: Change your active PC to a different PC you’ve already created.
 - `/pcinfo`: Display all information about your active PC.
 - `/delete-pc`: Delete a player character from your account.
 
-### Rolling Moves
+## Rolling Moves
 
 These commands work best after you create a character: they will automatically pull any relevant stats from your active PC. They still work if you have no PCs; you just need to manually set your modifiers.
 
