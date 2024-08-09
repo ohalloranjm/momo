@@ -1,8 +1,10 @@
+Momo takes the following slash commands.
+
 ### Create & Manage Player Characters
 
 Each Discord account may have up to five player characters (PCs).
 
-- `/newpc`: Create a new player character and set it to active.
+- `/newpc`: Create a new player character.
 - `/pclist`: List all of your created PCs.
 - `/switchpc`: Change your active PC to a different PC you’ve already created.
 - `/pcinfo`: Display all information about your active PC.
