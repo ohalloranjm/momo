@@ -11,7 +11,7 @@ Each Discord account may have up to five player characters. Only one of your PCs
 - [`/switchpc`](commands/switchpc.md): Change your active PC to a different PC you’ve already created.
 - [`/pcinfo`](commands/pcinfo.md): Display all information about your active PC.
 - [`/delete-pc`](commands/delete-pc.md): Delete a player character from your account.
-- [`/change-stat`](commands/changestat): Change your active PC’s Creativity, Harmony, Focus, or Passion.
+- [`/change-stat`](commands/changestat.md): Change your active PC’s Creativity, Harmony, Focus, or Passion.
 
 ## Rolling Moves
 
@@ -53,7 +53,7 @@ To _live up to your balance principle_ on a basic or stance move, set the `alter
 - [`/xf` or `/clearfatigue`](commands/clearfatigue.md): Clear one or more fatigue.
 - [`/b` or `/balance`](commands/balance.md): Shift your balance.
 - [`/resetbalance`](commands/resetbalance.md): Set your balance to center.
-- [`/shiftcenter`](commands/shiftcenter): Shift your center of balance.
+- [`/shiftcenter`](commands/shiftcenter.md): Shift your center of balance.
 
 ## Info
 
