@@ -6,7 +6,7 @@ The `/newpc` slash command creates a new player character (PC) and makes it your
 
 - `name` (string, required): The name of your new character. Cannot be identical to any of your existing characters’ names.
 
-## Execution
+## Execution [(ephemeral)](https://support.discord.com/hc/en-us/articles/1500000580222-Ephemeral-Messages-FAQ)
 
 If you’ve already created the maximum of five player characters, Momo will prompt you to [delete one](delete-pc.md) and try again.
 
