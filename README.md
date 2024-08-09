@@ -18,13 +18,15 @@ Stat modifiers and condition penalties are automatically applied to your rolls, 
 
 ### Slash Commands
 
-Momo works by listening for slash commands in servers where he’s installed. Read the guide to slash commands (forthcoming), or see a list of commands by running `/help`. See also [Discord’s guide to slash commands](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ).
+Momo works by listening for slash commands in servers where he’s installed. To see a list of accepted commands, run `/help` or [read the documentation](docs/README.md).
+
+See also [Discord’s guide to slash commands](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ).
 
 ### Playbooks
 
-At this time, support for playbooks extends to starting stats and balance principles. Most playbook-specific moves and features are not yet implemented—with the exception of the Elder’s special alternate conditions.
+At this time, support for playbooks extends to starting stats and balance principles. Most playbook-specific moves and features are not yet implemented—with the exception of the Elder’s special alternate conditions, which are.
 
-All ten core playbooks, as well as the playbooks from _Wan Shi Tong’s Adventure Guide_ and the _Republic City Setting Toolkit_, are included.
+All ten core playbooks are included; so are the playbooks from _Wan Shi Tong’s Adventure Guide_ and the _Republic City Setting Toolkit_.
 
 ## Planned Features
 
@@ -35,17 +37,16 @@ Features not yet supported include:
 - Playbook moves
 - Most playbook spceial features (the Elder’s conditions are the exception)
 - Combat techniques[^1]
-- Combat statuses
+- Statuses
 - Growth and advancement
 - Moments of Balance
 - Creating and managing NPCs
-- A searchable rules dictionary
 
 Other fun, but not strictly necessary, planned features include:
 
+- A searchable rules dictionary
 - Image icons for player characters
-- A random name generator, filterable by gender and nation
-- Other random generators, such as adventure hooks, NPCs, and phaseses of the moon
+- Random generators—such as for names, adventure hooks, and phaseses of the moon
 
 ## Disclaimers
 
