@@ -1,6 +1,6 @@
 # /delete-pc
 
-The `/deletepc` slash command changes your [active player character](../active-pc.md) (PC) to a different PC associated with your account.
+The `/delete-pc` slash command changes your [active player character](../active-pc.md) (PC) to a different PC associated with your account.
 
 ## Options
 
