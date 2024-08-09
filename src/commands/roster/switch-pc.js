@@ -17,7 +17,7 @@ module.exports = {
     await interaction.deferReply({ ephemeral: true });
 
     const roster = await PlayerCharacter.grab(interaction, { roster: true });
-    if (!roster.length) return await interaction.followUp(PlayerCharacter.noPC);
+    if (!roster.length) return await interaction.followUp(PlayerCharacter.nopc);
 
     const name = interaction.options.getString('name');
     const newActive = roster.find(pc => pc.name === name);
