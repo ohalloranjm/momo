@@ -1,0 +1,27 @@
+{
+  "name": "momo",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "register": "node deploy-commands.js",
+    "migrate": "dotenv sequelize db:migrate",
+    "drop": "dotenv sequelize db:migrate:undo:all"
+  },
+  "author": "Joy O'Halloran",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2",
+    "nodemon": "^3.1.4",
+    "sqlite3": "^5.1.7"
+  }
+}
