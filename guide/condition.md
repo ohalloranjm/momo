@@ -1,6 +1,6 @@
 # /condition
 
-The `/condition` slash command allows you to mark conditions for your [active player character](../active-pc.md).
+The `/condition` slash command allows you to mark conditions for your [active player character](_active-pc.md).
 
 ## Alias
 

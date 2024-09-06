@@ -1,10 +1,4 @@
-const {
-  Client,
-  Collection,
-  Events,
-  GatewayIntentBits,
-  BaseInteraction,
-} = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 require('dotenv').config();
@@ -16,6 +10,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // COMMANDS HANDLER
 
 client.commands = new Collection();
+client.cooldowns = new Collection();
 
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs

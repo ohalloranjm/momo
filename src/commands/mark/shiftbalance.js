@@ -60,7 +60,6 @@ module.exports = {
       shift = await pc.shiftBalance(confirmPrinciple.customId);
 
       await confirmPrinciple.update({
-        content: `:thumbsup:`,
         components: [],
       });
     }

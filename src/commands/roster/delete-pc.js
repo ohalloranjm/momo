@@ -10,6 +10,7 @@ module.exports = {
         .setName('name')
         .setDescription('The name of the PC you want to delete.')
         .setRequired(true)
+        .setMaxLength(200)
     ),
   async execute(interaction) {
     await interaction.deferReply();

@@ -1,6 +1,6 @@
-# /resetbalance
+# /returntocenter
 
-The `/resetbalance` slash command allows you to return your [active player character](../active-pc.md)’s balance to their center.
+The `/returntocenter` slash command allows you to return your [active player character](_active-pc.md)’s balance to their center.
 
 ## Options
 

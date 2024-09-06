@@ -1,6 +1,6 @@
 # /condition
 
-The `/clearcondition` slash command allows you to clear conditions for your [active player character](../active-pc.md).
+The `/clearcondition` slash command allows you to clear conditions for your [active player character](_active-pc.md).
 
 ## Alias
 

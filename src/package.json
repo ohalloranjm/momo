@@ -6,6 +6,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "register": "node deploy-commands.js",
+    "register:undo": "node delete-commands.js",
     "migrate": "dotenv sequelize db:migrate",
     "drop": "dotenv sequelize db:migrate:undo:all"
   },

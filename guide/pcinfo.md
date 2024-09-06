@@ -1,6 +1,6 @@
 # /pcinfo
 
-The `/pcinfo` slash command displays information about your [active player character](../active-pc.md).
+The `/pcinfo` slash command displays information about your [active player character](_active-pc.md).
 
 ## Options
 

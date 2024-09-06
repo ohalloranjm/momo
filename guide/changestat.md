@@ -1,6 +1,6 @@
 # /changestat
 
-The `/changestat` slash command changes one of your [active player character](../active-pc.md)’s stats.
+The `/changestat` slash command changes one of your [active player character](_active-pc.md)’s stats.
 
 ## Options
 

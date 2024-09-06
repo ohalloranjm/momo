@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('resetbalance')
+    .setName('returntocenter')
     .setDescription('Return your balance to your center.'),
 
   async execute(interaction) {

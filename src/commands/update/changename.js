@@ -10,6 +10,7 @@ module.exports = {
         .setName('new-name')
         .setDescription('Your character’s new name')
         .setRequired(true)
+        .setMaxLength(200)
     ),
 
   async execute(interaction) {

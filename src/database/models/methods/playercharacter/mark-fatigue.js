@@ -16,8 +16,6 @@ module.exports = {
 
     const conditionsMarked = this.conditionsMarked();
 
-    console.log(spillover);
-    console.log(conditionsMarked);
     if (spillover > 5 - conditionsMarked) {
       response.message += ` ${this.name} is taken out!`;
       this.conditions = '11111';

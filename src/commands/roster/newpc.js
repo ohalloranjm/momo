@@ -11,6 +11,7 @@ module.exports = {
         .setName('name')
         .setDescription("Your character's name.")
         .setRequired(true)
+        .setMaxLength(200)
     ),
 
   async execute(interaction) {
@@ -37,7 +38,7 @@ module.exports = {
     const playbook = await r.selectPlaybook('\n* Playbook: #PB');
     const training = await r.selectTraining('\n* Training: #TRAINING');
 
-    const { defaultStats } = playbook;
+    const defaultStats = { ...playbook.defaultStats };
     const excludedStats = STATS.filter(stat => defaultStats[stat] === 2);
     const statIncrease = await r.selectStat({
       excludedStats,

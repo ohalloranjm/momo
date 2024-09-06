@@ -1,6 +1,6 @@
 # Move-Rolling Slash Commands
 
-Move-rolling commands mostly follow the same template: simulate a 2d6 die roll, apply relevant stats and penalties from your [active player character](../active-pc.md), and display the result.
+Move-rolling commands mostly follow the same template: simulate a 2d6 die roll, apply relevant stats and penalties from your [active player character](_active-pc.md), and display the result.
 
 ## Template
 

@@ -1,6 +1,6 @@
-# /changename
+# /newtraining
 
-The `/changename` slash adds a new training to your [active player character](../active-pc.md), or replaces their existing training.
+The `/newtraining` slash adds a new training to your [active player character](_active-pc.md), or replaces their existing training.
 
 ## Options
 

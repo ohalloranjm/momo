@@ -29,11 +29,21 @@ Momo can now accept and respond to slash commands in the specified server.
 
 Running `npm run dev` instead will start Momo as normal, but automatically restart whenever the source files are changed.
 
-## Re-Registering Slash Commands
+## Managing Slash Commands
 
-If you change existing slash commands or create new slash commands, you will need to run `npm register` again to register the changes with Discord.
+If you change existing slash commands or create new slash commands, you will need to run `npm run register` again to register the changes with Discord.
 
-You do _not_ need to re-register your commands if the only thing changing is Momo’s execution of a command (the `execute` property). Only changes to the `SlashCommandBuilder()` object (`data` property) require re-registration.
+You do _not_ need to re-register your commands if the only thing changing is Momo’s execution of a command (the `execute` property). Only changes to `data` or `alias` properties require re-registration.
+
+### Deleting Commands
+
+To undo a registration for a specific slash command, set the `COMMAND_ID` environment varibale to the ID of that command and run `npm run register:undo`.
+
+To un-register _all_ commands, set `COMMAND_ID=delete_all`.
+
+### Global Deployment
+
+When the `NODE_ENV` environment variable is set to `production`, commands are registered or deleted globally—so that they can be used in any server where Momo is installed.
 
 ## Resetting Your Database
 

@@ -45,7 +45,7 @@ const blueprint = [
   { slash: ['fatigue', 'f'], content: 'Mark one or more fatigue.' },
   { slash: ['clearfatigue', 'xf'], content: 'Clear one or more fatigue.' },
   { slash: ['shiftbalance', 'b'], content: 'Shift your balance.' },
-  { slash: 'resetbalance', content: 'Set your balance to center.' },
+  { slash: 'returntocenter', content: 'Set your balance to center.' },
   { slash: 'shiftcenter', content: 'Shift your center of balance.' },
   { prepend: '##', content: 'Info' },
   { slash: 'help', content: 'You are here.' },

@@ -1,6 +1,6 @@
 # /shiftbalance
 
-The `/shiftbalance` slash command allows you to shift your [active player character](../active-pc.md)’s balance.
+The `/shiftbalance` slash command allows you to shift your [active player character](_active-pc.md)’s balance.
 
 ## Alias
 

@@ -12,6 +12,7 @@ module.exports = {
           'The name of the player character you’d like to switch to.'
         )
         .setRequired(true)
+        .setMaxLength(200)
     ),
   async execute(interaction) {
     await interaction.deferReply({ ephemeral: true });

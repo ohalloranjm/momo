@@ -1,6 +1,6 @@
 # /shiftcenter
 
-The `/shiftcenter` slash command allows you to shift your [active player character](../active-pc.md)’s center of balance.
+The `/shiftcenter` slash command allows you to shift your [active player character](_active-pc.md)’s center of balance.
 
 ## Options
 
@@ -20,4 +20,4 @@ If you didn’t provide a `principle` option, Momo first ephemerally prompts you
 Momo then attempts to shift your active PC’s balance one step toward the principle you chose (whether through the `principle` option or a button click), and replies with one of the following:
 
 - If the shifted-toward principle is already +3, Momo informs you that he cannot shift the PC’s center off the edge of their balance track.
-- If the shifted-toward principle starts at +2 or less, Momo change the PC’s center and replies with a confirmation of the new center.
+- If the shifted-toward principle starts at +2 or less, Momo changes the PC’s center and replies with a confirmation of the new center.

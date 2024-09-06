@@ -1,6 +1,6 @@
 # /newpc
 
-The `/newpc` slash command creates a new player character (PC) and makes it your [active character](../active-pc.md).
+The `/newpc` slash command creates a new player character (PC) and makes it your [active character](_active-pc.md).
 
 ## Options
 

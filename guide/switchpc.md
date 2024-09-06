@@ -1,6 +1,6 @@
 # /switchpc
 
-The `/switchpc` slash command changes your [active player character](../active-pc.md) to a different PC associated with your account.
+The `/switchpc` slash command changes your [active player character](_active-pc.md) to a different PC associated with your account.
 
 ## Options
 

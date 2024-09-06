@@ -1,6 +1,6 @@
 # /clearfatigue
 
-The `/clearfatigue` slash command allows you to clear 1- or more fatigue from your [active player character](../active-pc.md).
+The `/clearfatigue` slash command allows you to clear 1- or more fatigue from your [active player character](_active-pc.md).
 
 ## Alias
 
