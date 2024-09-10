@@ -17,4 +17,4 @@ for (const pbPath of playbookArr) {
   });
 }
 
-module.exports = playbooks;
+module.exports = { playbooks, playbookMoves };

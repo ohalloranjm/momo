@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 const path = require('node:path');
 const fs = require('node:fs');
-const playbooks = require('../../playbooks');
+const { playbooks } = require('../../playbooks');
 
 module.exports = (sequelize, DataTypes) => {
   class PlayerCharacter extends Model {}

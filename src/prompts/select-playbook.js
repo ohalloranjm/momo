@@ -1,4 +1,4 @@
-const playbooks = require('../playbooks');
+const { playbooks } = require('../playbooks');
 const {
   ActionRowBuilder,
   StringSelectMenuBuilder,
