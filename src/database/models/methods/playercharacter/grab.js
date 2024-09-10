@@ -19,7 +19,7 @@ module.exports = {
     // configure default query
     let query = this.findOne.bind(this);
     const where = { userId: user, active: true };
-    const attributes = ['id', 'name', 'playbook'];
+    const attributes = ['id', 'name', 'playbook', 'moves'];
     const queryOptions = { attributes, where };
 
     // BY DEFAULT, returns the name & playbook of the user's active PC

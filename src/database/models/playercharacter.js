@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 const path = require('node:path');
 const fs = require('node:fs');
-const { playbooks } = require('../../playbooks');
+const { playbooks, playbookMoves } = require('../../playbooks');
 
 module.exports = (sequelize, DataTypes) => {
   class PlayerCharacter extends Model {}
@@ -102,6 +102,21 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           min: -3,
           max: 3,
+        },
+      },
+      moves: {
+        type: DataTypes.STRING(500),
+        allowNull: false,
+        defaultValue: '',
+        validate: {
+          onlyMoves(val) {
+            if (
+              val.length &&
+              val.split(',').some(move => !(move in playbookMoves))
+            ) {
+              throw Error(`${val} is not a valid string of playbook moves.`);
+            }
+          },
         },
       },
       Waterbending: {
