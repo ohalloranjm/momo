@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { playbooks } = require('../playbooks');
+const playbooks = require('../playbooks');
 const { STATS } = require('../utils/constants');
 const { PlayerCharacter } = require('../database/models');
 const Roll = require('./roll');
