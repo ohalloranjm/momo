@@ -36,7 +36,7 @@ _Although Momo’s core functionality is great, he has a lot to learn before he�
 Features not yet supported include:
 
 - Playbook moves
-- Most playbook spceial features (except the Elder’s conditions, which are already implemented)
+- Most playbook special features (except the Elder’s conditions, which are already implemented)
 - Basic techniques
 - Playbook advanced techniques
 - Custom advanced techniques
@@ -49,7 +49,7 @@ Other fun, but not strictly necessary, planned features include:
 
 - A searchable rules dictionary
 - Image icons for player characters
-- Random generators—such as for names, adventure hooks, and phaseses of the moon
+- Random generators—such as for names, adventure hooks, and phases of the moon
 
 ## Disclaimers
 
