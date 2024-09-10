@@ -18,6 +18,16 @@ class Playbook {
     this.principles = [leftPrinciple, rightPrinciple];
     return this;
   }
+
+  setFeature(feature) {
+    this.feature = feature;
+    return this;
+  }
+
+  setMoves(...moves) {
+    this.moves = moves;
+    return this;
+  }
 }
 
 module.exports = Playbook;
