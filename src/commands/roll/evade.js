@@ -25,7 +25,7 @@ module.exports = {
           { name: 'Live up to Your Balance Principle', value: 'balance' },
           { name: 'Conditions Marked', value: 'conditions' },
           { name: 'Focus', value: 'Focus' },
-          { name: 'Passion', value: 'Passion ' },
+          { name: 'Passion', value: 'Passion' },
         ])
     )
     .addIntegerOption(option =>
@@ -41,16 +41,17 @@ module.exports = {
     const override = interaction.options.getInteger('override-modifier');
 
     let pc;
+    let altStat;
     if (override === null) {
       const attributes = ['conditions'];
-      const altStat = interaction.options.getString('alt-stat');
-      if (['balance, Focus, Passion'].includes(altStat)) {
+      altStat = interaction.options.getString('alt-stat');
+      if (['balance', 'Focus', 'Passion'].includes(altStat)) {
         attributes.push(altStat);
       } else if (!altStat) {
         attributes.push('Creativity', 'Harmony');
       }
 
-      const pc = await PlayerCharacter.grab(interaction, attributes);
+      pc = await PlayerCharacter.grab(interaction, attributes);
     }
 
     let statValue;
