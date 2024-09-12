@@ -45,9 +45,11 @@ module.exports = {
           value: pc.conditionList(true),
         },
         { name: 'Fatigue', value: `${pc.fatigue}/5`, inline: true },
-        { name: 'Training', value: pc.trainingList(true), inline: true }
+        { name: 'Training', value: pc.trainingList(true), inline: true },
+        { name: 'Playbook Moves', value: pc.getMoves(true) }
       );
 
+    console.log(pc.getMoves());
     interaction.followUp({ embeds: [embed] });
   },
 };

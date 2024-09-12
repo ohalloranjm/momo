@@ -1,0 +1,23 @@
+
+> momo@1.0.1 dev
+> nodemon index.js
+
+[33m[nodemon] 3.1.4[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node index.js`[39m
+Ready! Logged in as pabu#5150
+Executed (default): SELECT `PlayerCharacter`.*, `TakenMoves`.`id` AS `TakenMoves.id`, `TakenMoves`.`playerCharacterId` AS `TakenMoves.playerCharacterId`, `TakenMoves`.`moveId` AS `TakenMoves.moveId`, `TakenMoves`.`createdAt` AS `TakenMoves.createdAt`, `TakenMoves`.`updatedAt` AS `TakenMoves.updatedAt` FROM (SELECT `PlayerCharacter`.`id`, `PlayerCharacter`.`userId`, `PlayerCharacter`.`active`, `PlayerCharacter`.`name`, `PlayerCharacter`.`playbook`, `PlayerCharacter`.`Creativity`, `PlayerCharacter`.`Focus`, `PlayerCharacter`.`Harmony`, `PlayerCharacter`.`Passion`, `PlayerCharacter`.`balance`, `PlayerCharacter`.`center`, `PlayerCharacter`.`Waterbending`, `PlayerCharacter`.`Earthbending`, `PlayerCharacter`.`Firebending`, `PlayerCharacter`.`Airbending`, `PlayerCharacter`.`Weapons`, `PlayerCharacter`.`Technology`, `PlayerCharacter`.`backgrounds`, `PlayerCharacter`.`demeanor`, `PlayerCharacter`.`fatigue`, `PlayerCharacter`.`conditions`, `PlayerCharacter`.`createdAt`, `PlayerCharacter`.`updatedAt` FROM `PlayerCharacters` AS `PlayerCharacter` WHERE `PlayerCharacter`.`userId` = '264028621801259008' AND `PlayerCharacter`.`active` = 1 LIMIT 1) AS `PlayerCharacter` LEFT OUTER JOIN `TakenMoves` AS `TakenMoves` ON `PlayerCharacter`.`id` = `TakenMoves`.`playerCharacterId`; Elapsed time: 4ms
+Guardian1
+Executed (default): SELECT `PlayerCharacter`.`id`, `PlayerCharacter`.`name`, `PlayerCharacter`.`playbook`, `PlayerCharacter`.`active`, `TakenMoves`.`id` AS `TakenMoves.id`, `TakenMoves`.`playerCharacterId` AS `TakenMoves.playerCharacterId`, `TakenMoves`.`moveId` AS `TakenMoves.moveId`, `TakenMoves`.`createdAt` AS `TakenMoves.createdAt`, `TakenMoves`.`updatedAt` AS `TakenMoves.updatedAt` FROM `PlayerCharacters` AS `PlayerCharacter` LEFT OUTER JOIN `TakenMoves` AS `TakenMoves` ON `PlayerCharacter`.`id` = `TakenMoves`.`playerCharacterId` WHERE `PlayerCharacter`.`userId` = '264028621801259008' AND (`PlayerCharacter`.`active` = 1 OR `PlayerCharacter`.`active` = 0); Elapsed time: 3ms
+Executed (default): UPDATE `PlayerCharacters` SET `active`=$1,`updatedAt`=$2 WHERE `id` = $3; {"$1":false,"$2":"2024-09-12 14:06:08.133 +00:00","$3":1} Elapsed time: 15ms
+Executed (default): UPDATE `PlayerCharacters` SET `active`=$1,`updatedAt`=$2 WHERE `id` = $3; {"$1":true,"$2":"2024-09-12 14:06:08.167 +00:00","$3":2} Elapsed time: 5ms
+Executed (default): SELECT `PlayerCharacter`.*, `TakenMoves`.`id` AS `TakenMoves.id`, `TakenMoves`.`playerCharacterId` AS `TakenMoves.playerCharacterId`, `TakenMoves`.`moveId` AS `TakenMoves.moveId`, `TakenMoves`.`createdAt` AS `TakenMoves.createdAt`, `TakenMoves`.`updatedAt` AS `TakenMoves.updatedAt` FROM (SELECT `PlayerCharacter`.`id`, `PlayerCharacter`.`userId`, `PlayerCharacter`.`active`, `PlayerCharacter`.`name`, `PlayerCharacter`.`playbook`, `PlayerCharacter`.`Creativity`, `PlayerCharacter`.`Focus`, `PlayerCharacter`.`Harmony`, `PlayerCharacter`.`Passion`, `PlayerCharacter`.`balance`, `PlayerCharacter`.`center`, `PlayerCharacter`.`Waterbending`, `PlayerCharacter`.`Earthbending`, `PlayerCharacter`.`Firebending`, `PlayerCharacter`.`Airbending`, `PlayerCharacter`.`Weapons`, `PlayerCharacter`.`Technology`, `PlayerCharacter`.`backgrounds`, `PlayerCharacter`.`demeanor`, `PlayerCharacter`.`fatigue`, `PlayerCharacter`.`conditions`, `PlayerCharacter`.`createdAt`, `PlayerCharacter`.`updatedAt` FROM `PlayerCharacters` AS `PlayerCharacter` WHERE `PlayerCharacter`.`userId` = '264028621801259008' AND `PlayerCharacter`.`active` = 1 LIMIT 1) AS `PlayerCharacter` LEFT OUTER JOIN `TakenMoves` AS `TakenMoves` ON `PlayerCharacter`.`id` = `TakenMoves`.`playerCharacterId`; Elapsed time: 3ms
+Adamant0
+Destined0
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Ready! Logged in as pabu#5150
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m

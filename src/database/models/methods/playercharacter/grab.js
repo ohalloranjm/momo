@@ -39,7 +39,7 @@ module.exports = {
 
     // { allInfo: true } option
     // return all attributes, not just name & playbook
-    if (allInfo) return await query({ where });
+    if (allInfo) return await query({ where, include });
 
     // { info: string (or array of strings) } option
     // adds attribute(s) to the query
