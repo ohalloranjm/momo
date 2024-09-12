@@ -19,8 +19,9 @@ module.exports = {
     // configure default query
     let query = this.findOne.bind(this);
     const where = { userId: user, active: true };
-    const attributes = ['id', 'name', 'playbook', 'moves'];
-    const queryOptions = { attributes, where };
+    const attributes = ['id', 'name', 'playbook'];
+    const include = require('../../index.js').TakenMove;
+    const queryOptions = { attributes, where, include };
 
     // BY DEFAULT, returns the name & playbook of the user's active PC
     if (!options) return await query(queryOptions);
