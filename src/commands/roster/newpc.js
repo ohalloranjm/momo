@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { STATS } = require('../../utils/constants');
 const { PlayerCharacter } = require('../../database/models');
+const { playbookMenu, trainingButtons } = require('../../components');
+const { playbooks } = require('../../playbooks');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -31,12 +33,43 @@ module.exports = {
       );
     }
 
-    await interaction.followUp(`## Building Player Character: ${name}…`);
+    const contentArr = [`## Building Player Character: ${name}…`];
+    let content;
+    const buildContent = () => (content = contentArr.join('\n'));
+    buildContent();
 
-    const r = require('../../prompts')(interaction);
+    console.log(playbookMenu);
+    let components = playbookMenu;
 
-    const playbook = await r.selectPlaybook('\n* Playbook: #PB');
-    const training = await r.selectTraining('\n* Training: #TRAINING');
+    const pbOptions = await interaction.followUp({ content, components });
+
+    const pbChoice = await pbOptions.awaitMessageComponent({
+      time: 5 * 60 * 1000,
+    });
+
+    await pbChoice.deferUpdate();
+
+    const pbKey = pbChoice.values[0];
+    const playbook = playbooks[pbKey];
+
+    contentArr.push(`**Playbook:** ${playbook.name}`, 'Select your training.');
+    buildContent();
+    components = trainingButtons;
+
+    const trainingOptions = await interaction.editReply({
+      content,
+      components,
+    });
+
+    const trainingChoice = await trainingOptions.awaitMessageComponent({
+      time: 2 * 60 * 1000,
+    });
+
+    await trainingChoice.deferUpdate();
+    const training = trainingChoice.customId;
+
+    contentArr[2] = `**Training:** ${training}`;
+    buildContent();
 
     const defaultStats = { ...playbook.defaultStats };
     const excludedStats = STATS.filter(stat => defaultStats[stat] === 2);
