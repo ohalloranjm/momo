@@ -6,4 +6,6 @@ const buttons = STATS.map(stat =>
   new ButtonBuilder().setCustomId(stat).setStyle(ButtonStyle.Primary)
 );
 
-module.exports = [buttons];
+const row = new ActionRowBulider().addComponents(buttons);
+
+module.exports = [row];
